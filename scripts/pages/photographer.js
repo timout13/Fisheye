@@ -36,9 +36,11 @@ async function displayData(authorImgs, author) {
   const photographersSection = document.querySelector(".photograph-header");
   const photographWP = document.querySelector(".photograph-wp");
   const photographerModel = photographerTemplate(author);
-  const { img, h2, location, catchPhrase, priceTag } =
-  photographerModel.getAuthorBlock();
-  photographersSection.append(img, h2, location, catchPhrase, priceTag);
+  const { img, h2, location, catchPhrase, priceTag, profilWp } =
+    photographerModel.getAuthorBlock();
+  profilWp.append(h2, location, catchPhrase, priceTag)
+  photographersSection.prepend(profilWp);
+  photographersSection.append(img);
   authorImgs.forEach(img => {
     const imgElement = imageTemplate(img);
     photographWP.appendChild(imgElement);
