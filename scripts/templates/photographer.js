@@ -54,13 +54,82 @@ function photographerTemplate(data) {
   const getAuthorBlock = () => {
     const { img, h2, location, catchPhrase, priceTag } = createMainElement();
     const profilWp = document.createElement("div");
+    const photographersSection = document.querySelector(".photograph-header");
     profilWp.classList.add("photograph-header-profil");
     img.classList.add("photograph-header-img");
-    return { img, h2, location, catchPhrase, priceTag, profilWp };
+    profilWp.append(h2, location, catchPhrase);
+    photographersSection.prepend(profilWp);
+    photographersSection.append(img);
+    return {  priceTag };
   };
   return { name, picture, getUserCardDOM, getAuthorBlock };
 }
-
-const imageTemplate = (img) => {
-  // Fait le template des img de la page photographer
+// Create the media block in photographer page
+const likeEventListener = (e,mediaLike, hasBeenLiked) => {
+  /* For img */
+  let nbLikes = Number(mediaLike.textContent);
+  !hasBeenLiked ? nbLikes++ : nbLikes--;
+  mediaLike.textContent = nbLikes;
+  mediaLike.append(e.target);
+  /* For Page */
+  let pageLikesText = document.querySelector(".priceAndLike-wp-like");
+  let pageLikes = Number(pageLikesText.textContent);
+  !hasBeenLiked ? pageLikes++ : pageLikes--;
+  pageLikesText.textContent = pageLikes;
+  return !hasBeenLiked;
+}
+const imageTemplate = (photographWP, img, srcMedia,isSort=false) => {
+  let divWp = document.createElement("div");
+  divWp.classList.add("media-wp");
+  let divText = document.createElement("div");
+  let mediaElement = null;
+  if (img.image) {
+    mediaElement = document.createElement("img");
+    mediaElement.src = srcMedia;
+  } else if (img.video) {
+    mediaElement = document.createElement("video");
+    //mediaElement.setAttribute("controls", "");
+    let videoSrc = document.createElement("source");
+    videoSrc.src = srcMedia;
+    videoSrc.setAttribute("type", "video/mp4");
+    let videoAnchor = document.createElement("a");
+    let videoText = document.createElement("p");
+    videoAnchor.textContent = "un lien pour télécharger la vidéo.";
+    videoAnchor.href = srcMedia;
+    videoText.textContent = `Votre navigateur ne prend pas en charge les vidéos HTML5. Voici`;
+    videoText.append(videoAnchor);
+    mediaElement.append(videoSrc, videoText);
+  }
+  mediaElement.classList.add("media-wp-media");
+  let mediaTitle = document.createElement("p");
+  mediaTitle.textContent = img.title;
+  /* Like Creation */
+  let mediaLike = document.createElement("p");
+  mediaLike.textContent = img.likes;
+  let iLike = document.createElement("i");
+  iLike.classList.add("fas", "fa-heart");
+  let hasBeenLiked = false;
+  iLike.addEventListener("click", (e) => {
+     hasBeenLiked = likeEventListener(e, mediaLike, hasBeenLiked);
+  })
+  mediaLike.appendChild(iLike);
+  divText.append(mediaTitle, mediaLike);
+  divWp.append(mediaElement, divText);
+  if (!isSort) {
+    photographWP.appendChild(divWp);
+  } else {
+    
+    return divWp;
+  }
 };
+
+const getPriceAndLikesBlock=(totalLikes, priceTag)=>{
+  const div = document.createElement("div");
+  div.classList.add("priceAndLike-wp");
+  const pLikes = document.createElement("p");
+  pLikes.classList.add("priceAndLike-wp-like");
+  pLikes.textContent = totalLikes;
+  priceTag.classList.add("priceAndLike-wp-price");
+  div.append(pLikes, priceTag);
+  main.prepend(div);
+}

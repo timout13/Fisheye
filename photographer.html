@@ -22,11 +22,18 @@
           Contactez-moi
         </button>
       </div>
+      <div class="sort sort--photograph">
+        <p class="click">Trier par</p>
+        <select>
+          <option value="1">Popularité</option>
+          <option value="2">Date</option>
+          <option value="3">Titre</option>
+        </select>
+      </div>
       <div class="photograph-wp">
-        
       </div>
     </main>
-    <div id="contact_modal">
+    <div class="modalwp modalwp-contact" id="contact_modal">
       <div class="modal">
         <header>
           <h2>Contactez-moi</h2>
@@ -34,13 +41,20 @@
         </header>
         <form>
           <div>
-            <label>Prénom</label>
-            <input />
+            <label for="firstname">Prénom</label>
+            <input type="text" name="firstname" />
+            <label for="lastname">Nom</label>
+            <input type="text" name="lastname" />
+            <label for="email">Email</label>
+            <input type="email" name="email" />
+            <label for="message">Votre message</label>
+            <textarea name="message"></textarea>
           </div>
           <button class="contact_button">Envoyer</button>
         </form>
       </div>
     </div>
+    <script src="https://kit.fontawesome.com/6c9b8cba66.js" crossorigin="anonymous"></script>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/templates/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
