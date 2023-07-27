@@ -101,6 +101,10 @@ const imageTemplate = (photographWP, img, srcMedia,isSort=false) => {
     mediaElement.append(videoSrc, videoText);
   }
   mediaElement.classList.add("media-wp-media");
+  /* Event Click Img */
+  mediaElement.addEventListener("click",e => {
+    console.log(e.target);
+  })
   let mediaTitle = document.createElement("p");
   mediaTitle.textContent = img.title;
   /* Like Creation */

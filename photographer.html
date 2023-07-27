@@ -29,9 +29,48 @@
           <option value="2">Date</option>
           <option value="3">Titre</option>
         </select>
-      </div>
-      <div class="photograph-wp">
-      </div>
+
+        <form class="radios-filters">
+        <details class="custom-select">
+          <summary class="radios">
+              <input
+                type="radio"
+                name="filter"
+                id="filtrer"
+                title="Filtrer"
+                value="default"
+                checked
+                disabled
+              />
+              <input
+                type="radio"
+                name="filter"
+                id="popularite"
+                title="Popularité"
+                value="popularite"
+                
+              />
+              <input type="radio" name="filter" value="date" id="date" title="Date" />
+              <input type="radio" name="filter" value="titre" id="titre" title="Titre" />
+            </summary>
+            <ul class="list">
+              <li>
+                <label for="popularite">
+                  Popularité
+                  <span></span>
+                </label>
+              </li>
+              <li>
+                <label for="date">Date</label>
+              </li>
+              <li>
+                <label for="titre">Titre</label>
+              </li>
+            </ul>
+          </details>
+        </form>
+        </div>
+      <div class="photograph-wp"></div>
     </main>
     <div class="modalwp modalwp-contact" id="contact_modal">
       <div class="modal">
@@ -54,7 +93,27 @@
         </form>
       </div>
     </div>
-    <script src="https://kit.fontawesome.com/6c9b8cba66.js" crossorigin="anonymous"></script>
+    <div class="modalwp modalwp-lightbox" id="lightbox_modal">
+      <div class="modal">
+        <div class="modal-wp">
+          <div class="modal-wp-imgwp">
+            <img
+              class="modal-wp-imgwp-img"
+              src="https://picsum.photos/200/300"
+            />
+          </div>
+          <button class="modal-wp-close btn-close">X</button>
+          <div class="modal-wp-btnwp">
+            <button class="modal-wp-btnwp-btn btn-carousel">Prev</button>
+            <button class="modal-wp-btnwp-btn btn-carousel">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/6c9b8cba66.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/templates/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>

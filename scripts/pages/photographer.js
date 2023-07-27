@@ -99,6 +99,13 @@ function compareByDate(a, b) {
   }
   return 0;
 }
+
+const filterImgs = (authorImgs ,compareFunc, author, photographWp) => {
+  authorImgs.sort(compareFunc);
+  let dataSorted = displaySortedData(authorImgs, author);
+  photographWp.replaceChildren(...dataSorted);
+}
+
 async function init() {
   const selectSim = document.querySelector(".click");
   const photographWp = document.querySelector(".photograph-wp");
@@ -111,10 +118,26 @@ async function init() {
   const author = getAuthorById(idAuthor, photographers);
   displayData(authorImgs, author);
 
-  selectSim.addEventListener("click", (e) => {
-    authorImgs.sort(compareByDate);
-    let dataSorted = displaySortedData(authorImgs, author);
-    photographWp.replaceChildren(...dataSorted);
+  const allRadioFilter = document.querySelectorAll("input[name='filter']");
+  allRadioFilter.forEach(radio => {   
+    radio.addEventListener("input",(e)=> {
+      switch (radio.value) {
+        case "popularite":
+          console.log("pop");
+          filterImgs(authorImgs, compareByPop, author, photographWp);
+          break;
+        case "date":
+          console.log("date");
+          filterImgs(authorImgs, compareByDate, author, photographWp);
+          break;
+        case "titre":
+          console.log("titre");
+          filterImgs(authorImgs, compareByTitle, author, photographWp);
+          break;
+        default:console.log("default");
+          break;
+      }
+    })
   })
 }
 
