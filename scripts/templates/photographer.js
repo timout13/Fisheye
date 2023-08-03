@@ -60,12 +60,12 @@ function photographerTemplate(data) {
     profilWp.append(h2, location, catchPhrase);
     photographersSection.prepend(profilWp);
     photographersSection.append(img);
-    return {  priceTag };
+    return { priceTag };
   };
   return { name, picture, getUserCardDOM, getAuthorBlock };
 }
 // Create the media block in photographer page
-const likeEventListener = (e,mediaLike, hasBeenLiked) => {
+const likeEventListener = (e, mediaLike, hasBeenLiked) => {
   /* For img */
   let nbLikes = Number(mediaLike.textContent);
   !hasBeenLiked ? nbLikes++ : nbLikes--;
@@ -77,18 +77,29 @@ const likeEventListener = (e,mediaLike, hasBeenLiked) => {
   !hasBeenLiked ? pageLikes++ : pageLikes--;
   pageLikesText.textContent = pageLikes;
   return !hasBeenLiked;
-}
-const imageTemplate = (photographWP, img, srcMedia,isSort=false) => {
+};
+const carouselOnClick = (id) => {
+  const oldActive = document.querySelector("[data-active='true']");
+  const activeArticle = document.querySelector(`[data-id='${Number(id)}']`);
+    oldActive && oldActive.removeAttribute("data-active");
+    activeArticle.setAttribute("data-active", true);
+  const allCarItem = document.querySelectorAll(".modal-wp-view");
+  allCarItem.forEach((item) => {
+    item.style.transform = `translateX(-${id * 800}px)`;
+    item.setAttribute("data-offset", -id * 800);
+  });
+};
+const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   let divWp = document.createElement("div");
   divWp.classList.add("media-wp");
   let divText = document.createElement("div");
-  let mediaElement = null;
-  if (img.image) {
-    mediaElement = document.createElement("img");
-    mediaElement.src = srcMedia;
-  } else if (img.video) {
-    mediaElement = document.createElement("video");
-    //mediaElement.setAttribute("controls", "");
+  let mediaEl = null;
+  if (media.image) {
+    mediaEl = document.createElement("img");
+    mediaEl.src = srcMedia;
+  } else if (media.video) {
+    mediaEl = document.createElement("video");
+    //mediaEl.setAttribute("controls", "");
     let videoSrc = document.createElement("source");
     videoSrc.src = srcMedia;
     videoSrc.setAttribute("type", "video/mp4");
@@ -98,36 +109,42 @@ const imageTemplate = (photographWP, img, srcMedia,isSort=false) => {
     videoAnchor.href = srcMedia;
     videoText.textContent = `Votre navigateur ne prend pas en charge les vidéos HTML5. Voici`;
     videoText.append(videoAnchor);
-    mediaElement.append(videoSrc, videoText);
+    mediaEl.append(videoSrc, videoText);
   }
-  mediaElement.classList.add("media-wp-media");
+  mediaEl.classList.add("media-wp-media");
+  mediaEl.setAttribute("data-index", i);
   /* Event Click Img */
-  mediaElement.addEventListener("click",e => {
-    console.log(e.target);
-  })
+  mediaEl.addEventListener("click", (e) => {
+    const lightbox = document.querySelector(".modalwp-lightbox");
+    const lightboxImg = document.querySelector(".modal-wp-view-imgwp-img");
+    const imgSrc = e.target.src;
+    lightboxImg.src = imgSrc;
+    lightbox.classList.add("modalwp--show");
+    const iImg = e.target.getAttribute("data-index");
+    carouselOnClick(iImg);
+  });
   let mediaTitle = document.createElement("p");
-  mediaTitle.textContent = img.title;
+  mediaTitle.textContent = media.title;
   /* Like Creation */
   let mediaLike = document.createElement("p");
-  mediaLike.textContent = img.likes;
+  mediaLike.textContent = media.likes;
   let iLike = document.createElement("i");
   iLike.classList.add("fas", "fa-heart");
   let hasBeenLiked = false;
   iLike.addEventListener("click", (e) => {
-     hasBeenLiked = likeEventListener(e, mediaLike, hasBeenLiked);
-  })
+    hasBeenLiked = likeEventListener(e, mediaLike, hasBeenLiked);
+  });
   mediaLike.appendChild(iLike);
   divText.append(mediaTitle, mediaLike);
-  divWp.append(mediaElement, divText);
+  divWp.append(mediaEl, divText);
   if (!isSort) {
     photographWP.appendChild(divWp);
   } else {
-    
     return divWp;
   }
 };
 
-const getPriceAndLikesBlock=(totalLikes, priceTag)=>{
+const getPriceAndLikesBlock = (totalLikes, priceTag) => {
   const div = document.createElement("div");
   div.classList.add("priceAndLike-wp");
   const pLikes = document.createElement("p");
@@ -136,4 +153,41 @@ const getPriceAndLikesBlock=(totalLikes, priceTag)=>{
   priceTag.classList.add("priceAndLike-wp-price");
   div.append(pLikes, priceTag);
   main.prepend(div);
-}
+};
+
+const carouselElement = (i, lightbox, media, srcMedia) => {
+  const article = document.createElement("article");
+  const div = document.createElement("div");
+  let mediaEl = null;
+  const p = document.createElement("p");
+
+  article.classList.add("modal-wp-view");
+  div.classList.add("modal-wp-view-imgwp");
+  p.classList.add("modal-wp-view-imgwp-title");
+
+  article.setAttribute("data-id", i);
+  if (media.image) {
+    mediaEl = document.createElement("img");
+    mediaEl.src = srcMedia;
+  } else if (media.video) {
+    mediaEl = document.createElement("video");
+    mediaEl.setAttribute("controls", "");
+    let videoSrc = document.createElement("source");
+    videoSrc.src = srcMedia;
+    videoSrc.setAttribute("type", "video/mp4");
+    let videoAnchor = document.createElement("a");
+    let videoText = document.createElement("p");
+    videoAnchor.textContent = "un lien pour télécharger la vidéo.";
+    videoAnchor.href = srcMedia;
+    videoText.textContent = `Votre navigateur ne prend pas en charge les vidéos HTML5. Voici`;
+    videoText.append(videoAnchor);
+    mediaEl.append(videoSrc, videoText);
+  }
+  mediaEl.classList.add("modal-wp-view-imgwp-img");
+
+  p.textContent = media.title;
+
+  div.append(mediaEl);
+  article.append(div, p);
+  lightbox.append(article);
+};

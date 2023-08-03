@@ -24,11 +24,6 @@
       </div>
       <div class="sort sort--photograph">
         <p class="click">Trier par</p>
-        <select>
-          <option value="1">Popularité</option>
-          <option value="2">Date</option>
-          <option value="3">Titre</option>
-        </select>
 
         <form class="radios-filters">
         <details class="custom-select">
@@ -96,17 +91,11 @@
     <div class="modalwp modalwp-lightbox" id="lightbox_modal">
       <div class="modal">
         <div class="modal-wp">
-          <div class="modal-wp-imgwp">
-            <img
-              class="modal-wp-imgwp-img"
-              src="https://picsum.photos/200/300"
-            />
-          </div>
-          <button class="modal-wp-close btn-close">X</button>
-          <div class="modal-wp-btnwp">
-            <button class="modal-wp-btnwp-btn btn-carousel">Prev</button>
-            <button class="modal-wp-btnwp-btn btn-carousel">Next</button>
-          </div>
+            <div class="modal-wp-btnwp">
+              <button class="modal-wp-btnwp-btn btn-carousel" id="prev">Prev</button>
+              <button class="modal-wp-btnwp-btn btn-carousel" id="next">Next</button>
+            </div>
+          <button class="modal-wp-close btn-close" onclick="closeModal()">X</button>
         </div>
       </div>
     </div>

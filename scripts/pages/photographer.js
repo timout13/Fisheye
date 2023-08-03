@@ -45,24 +45,27 @@ const getMediaPath = (author, img) => {
 async function displayData(authorImgs, author) {
   const photographWP = document.querySelector(".photograph-wp");
   const photographerModel = photographerTemplate(author);
+  const lightboxWP = document.querySelector(".modalwp-lightbox .modal-wp");
   const { priceTag } = photographerModel.getAuthorBlock();
   let totalLikes = 0;
-  authorImgs.forEach((img) => {
+  authorImgs.forEach((img, i) => {
     let srcMedia = getMediaPath(author, img);
-    imageTemplate(photographWP,img, srcMedia);
+    imageTemplate(i, photographWP, img, srcMedia);
+    carouselElement(i, lightboxWP, img, srcMedia);
     totalLikes += img.likes;
   });
   getPriceAndLikesBlock(totalLikes, priceTag);
 }
- function displaySortedData(authorImgs, author) {
+function displaySortedData(authorImgs, author) {
   const photographWP = document.querySelector(".photograph-wp");
   let divWpArray = [];
   authorImgs.forEach((img) => {
     let srcMedia = getMediaPath(author, img);
-    divWpArray.push(imageTemplate(photographWP,img, srcMedia,true));
+    divWpArray.push(imageTemplate(i, photographWP, img, srcMedia, true));
   });
   return divWpArray;
 }
+
 function compareByTitle(a, b) {
   const titleA = a.title.toLowerCase();
   const titleB = b.title.toLowerCase();
@@ -75,52 +78,98 @@ function compareByTitle(a, b) {
   }
   return 0;
 }
+
 function compareByPop(a, b) {
   const titleA = a.likes;
   const titleB = b.likes;
 
   if (titleA < titleB) {
     return 1;
-  }
-  else if (titleA > titleB) {
+  } else if (titleA > titleB) {
     return -1;
   }
   return 0;
 }
+
 function compareByDate(a, b) {
   const titleA = a.date;
   const titleB = b.date;
 
   if (titleA < titleB) {
     return 1;
-  }
-  else if (titleA > titleB) {
+  } else if (titleA > titleB) {
     return -1;
   }
   return 0;
 }
 
-const filterImgs = (authorImgs ,compareFunc, author, photographWp) => {
+const filterImgs = (authorImgs, compareFunc, author, photographWp) => {
   authorImgs.sort(compareFunc);
   let dataSorted = displaySortedData(authorImgs, author);
   photographWp.replaceChildren(...dataSorted);
-}
+};
+
+const carouselArrow = (isNxt = false) => {
+  const allCarItem = document.querySelectorAll(".modal-wp-view");
+  const oldActive = document.querySelector("[data-active='true']");
+  const idActive = oldActive.getAttribute("data-id");
+  const nbItems = allCarItem.length - 1;
+
+  oldActive && oldActive.removeAttribute("data-active");
+  if (Number(idActive) == nbItems && isNxt) {
+    // Sup à 10
+    const activeArticle = document.querySelector(`[data-id='0']`);
+    activeArticle.setAttribute("data-active", true);
+    allCarItem.forEach((item) => {
+      item.style.transform = `translateX(calc(0*800px))`;
+      item.setAttribute("data-offset", "0");
+    });
+  } else if (Number(idActive) == 0 && !isNxt) {
+    // Inf à 0
+    const activeArticle = document.querySelector(
+      `[data-id='${Number(nbItems)}']`
+    );
+console.log(activeArticle);
+    activeArticle.setAttribute("data-active", true);
+    allCarItem.forEach((item) => {
+      item.style.transform = `translateX(calc(${nbItems*-800}px))`;
+      item.setAttribute("data-offset", `${nbItems*-800}`);
+    });
+  } else {
+    // Etat normal
+    console.log(isNxt);
+    const activeArticle = isNxt
+      ? document.querySelector(`[data-id='${Number(idActive) + 1}']`)
+      : document.querySelector(`[data-id='${Number(idActive) - 1}']`);
+      console.log(activeArticle);
+    oldActive && oldActive.removeAttribute("data-active");
+    activeArticle.setAttribute("data-active", true);
+    allCarItem.forEach((item) => {
+      itemOffSet = item.getAttribute("data-offset");
+      itemIndex = item.getAttribute("data-id");
+      let calc = isNxt ? Number(itemOffSet) - 800 : Number(itemOffSet) + 800;
+      item.style.transform = `translateX(${calc}px)`;
+      item.setAttribute("data-offset", calc);
+    });
+  }
+};
 
 async function init() {
-  const selectSim = document.querySelector(".click");
   const photographWp = document.querySelector(".photograph-wp");
   // Récupère les datas des photographes
   const getAuthor = new URLSearchParams(document.location.search);
   const idAuthor = Number(getAuthor.get("id"));
   const { media, photographers } = await getPhotographer();
   const authorImgs = getAuthorImgs(media, idAuthor);
-  
   const author = getAuthorById(idAuthor, photographers);
+  const allRadioFilter = document.querySelectorAll("input[name='filter']");
+  const carPrev = document.querySelector("#prev");
+  const carNext = document.querySelector("#next");
+
   displayData(authorImgs, author);
 
-  const allRadioFilter = document.querySelectorAll("input[name='filter']");
-  allRadioFilter.forEach(radio => {   
-    radio.addEventListener("input",(e)=> {
+  allRadioFilter.forEach((radio) => {
+    radio.addEventListener("input", (e) => {
       switch (radio.value) {
         case "popularite":
           console.log("pop");
@@ -134,11 +183,19 @@ async function init() {
           console.log("titre");
           filterImgs(authorImgs, compareByTitle, author, photographWp);
           break;
-        default:console.log("default");
+        default:
+          console.log("default");
           break;
       }
-    })
-  })
+    });
+  });
+
+  carPrev.addEventListener("click", (e) => {
+    carouselArrow();
+  });
+  carNext.addEventListener("click", (e) => {
+    carouselArrow(true);
+  });
 }
 
 init();
