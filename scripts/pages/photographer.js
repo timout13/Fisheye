@@ -50,6 +50,7 @@ async function displayData(authorImgs, author) {
   let totalLikes = 0;
   authorImgs.forEach((img, i) => {
     let srcMedia = getMediaPath(author, img);
+    // Photograph-Wp Element ↓
     imageTemplate(i, photographWP, img, srcMedia);
     carouselElement(i, lightboxWP, img, srcMedia);
     totalLikes += img.likes;
@@ -58,10 +59,14 @@ async function displayData(authorImgs, author) {
 }
 function displaySortedData(authorImgs, author) {
   const photographWP = document.querySelector(".photograph-wp");
+  const lightboxWP = document.querySelector(".modalwp-lightbox .modal-wp");
+  const lightboxArticle = lightboxWP.querySelectorAll(".modal-wp-view");
   let divWpArray = [];
-  authorImgs.forEach((img) => {
+  lightboxArticle.forEach(article => article.remove());
+  authorImgs.forEach((img,i) => {
     let srcMedia = getMediaPath(author, img);
     divWpArray.push(imageTemplate(i, photographWP, img, srcMedia, true));
+    carouselElement(i, lightboxWP, img, srcMedia);
   });
   return divWpArray;
 }
@@ -121,7 +126,7 @@ const carouselArrow = (isNxt = false) => {
     const activeArticle = document.querySelector(`[data-id='0']`);
     activeArticle.setAttribute("data-active", true);
     allCarItem.forEach((item) => {
-      item.style.transform = `translateX(calc(0*800px))`;
+      item.style.transform = `translateX(0)`;
       item.setAttribute("data-offset", "0");
     });
   } else if (Number(idActive) == 0 && !isNxt) {
@@ -132,8 +137,8 @@ const carouselArrow = (isNxt = false) => {
 console.log(activeArticle);
     activeArticle.setAttribute("data-active", true);
     allCarItem.forEach((item) => {
-      item.style.transform = `translateX(calc(${nbItems*-800}px))`;
-      item.setAttribute("data-offset", `${nbItems*-800}`);
+      item.style.transform = `translateX(calc(${nbItems*-1050}px))`;
+      item.setAttribute("data-offset", `${nbItems*-1050}`);
     });
   } else {
     // Etat normal
@@ -147,7 +152,7 @@ console.log(activeArticle);
     allCarItem.forEach((item) => {
       itemOffSet = item.getAttribute("data-offset");
       itemIndex = item.getAttribute("data-id");
-      let calc = isNxt ? Number(itemOffSet) - 800 : Number(itemOffSet) + 800;
+      let calc = isNxt ? Number(itemOffSet) - 1050 : Number(itemOffSet) + 1050;
       item.style.transform = `translateX(${calc}px)`;
       item.setAttribute("data-offset", calc);
     });
@@ -166,6 +171,22 @@ async function init() {
   const carPrev = document.querySelector("#prev");
   const carNext = document.querySelector("#next");
 
+  document.addEventListener("keydown", e => { 
+    const modalShow = document.querySelector(".modalwp-lightbox");
+    
+    if (modalShow.className.includes("modalwp--show")) {
+      console.log(e.key);
+      if (e.key == "ArrowLeft") {
+        carouselArrow();
+      }
+      if (e.key == "ArrowRight") {
+        carouselArrow(true);
+      }
+      if (e.key == "Escape") {
+        modalShow.classList.remove("modalwp--show");
+      }
+    }
+})
   displayData(authorImgs, author);
 
   allRadioFilter.forEach((radio) => {

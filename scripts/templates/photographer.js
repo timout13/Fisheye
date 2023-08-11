@@ -68,6 +68,7 @@ function photographerTemplate(data) {
 const likeEventListener = (e, mediaLike, hasBeenLiked) => {
   /* For img */
   let nbLikes = Number(mediaLike.textContent);
+  !hasBeenLiked ? mediaLike.classList.add("media-wp-text--like--liked") : mediaLike.classList.remove("media-wp-text--like--liked");
   !hasBeenLiked ? nbLikes++ : nbLikes--;
   mediaLike.textContent = nbLikes;
   mediaLike.append(e.target);
@@ -85,13 +86,17 @@ const carouselOnClick = (id) => {
     activeArticle.setAttribute("data-active", true);
   const allCarItem = document.querySelectorAll(".modal-wp-view");
   allCarItem.forEach((item) => {
-    item.style.transform = `translateX(-${id * 800}px)`;
-    item.setAttribute("data-offset", -id * 800);
+    item.style.transform = `translateX(-${id * 1050}px)`;
+    item.setAttribute("data-offset", -id * 1050);
   });
 };
+
+/* Photograph-wp Elements */
 const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   let divWp = document.createElement("div");
   divWp.classList.add("media-wp");
+  let divMediaWp = document.createElement("div");
+  divMediaWp.classList.add("media-wp-mediawp");
   let divText = document.createElement("div");
   let mediaEl = null;
   if (media.image) {
@@ -99,7 +104,6 @@ const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
     mediaEl.src = srcMedia;
   } else if (media.video) {
     mediaEl = document.createElement("video");
-    //mediaEl.setAttribute("controls", "");
     let videoSrc = document.createElement("source");
     videoSrc.src = srcMedia;
     videoSrc.setAttribute("type", "video/mp4");
@@ -111,32 +115,33 @@ const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
     videoText.append(videoAnchor);
     mediaEl.append(videoSrc, videoText);
   }
-  mediaEl.classList.add("media-wp-media");
+  mediaEl.classList.add("media-wp-mediawp-media");
   mediaEl.setAttribute("data-index", i);
   /* Event Click Img */
   mediaEl.addEventListener("click", (e) => {
     const lightbox = document.querySelector(".modalwp-lightbox");
-    const lightboxImg = document.querySelector(".modal-wp-view-imgwp-img");
-    const imgSrc = e.target.src;
-    lightboxImg.src = imgSrc;
     lightbox.classList.add("modalwp--show");
     const iImg = e.target.getAttribute("data-index");
     carouselOnClick(iImg);
   });
   let mediaTitle = document.createElement("p");
+  mediaTitle.classList.add("media-wp-text--title");
   mediaTitle.textContent = media.title;
   /* Like Creation */
   let mediaLike = document.createElement("p");
+  mediaLike.classList.add("media-wp-text--like");
   mediaLike.textContent = media.likes;
   let iLike = document.createElement("i");
-  iLike.classList.add("fas", "fa-heart");
+  iLike.classList.add("fas", "fa-heart", "p-fa--img");
   let hasBeenLiked = false;
   iLike.addEventListener("click", (e) => {
     hasBeenLiked = likeEventListener(e, mediaLike, hasBeenLiked);
   });
+  divText.classList.add('media-wp-text');
   mediaLike.appendChild(iLike);
   divText.append(mediaTitle, mediaLike);
-  divWp.append(mediaEl, divText);
+  divMediaWp.append(mediaEl);
+  divWp.append(divMediaWp, divText);
   if (!isSort) {
     photographWP.appendChild(divWp);
   } else {
@@ -171,7 +176,7 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
     mediaEl.src = srcMedia;
   } else if (media.video) {
     mediaEl = document.createElement("video");
-    mediaEl.setAttribute("controls", "");
+    mediaEl.controls = true;
     let videoSrc = document.createElement("source");
     videoSrc.src = srcMedia;
     videoSrc.setAttribute("type", "video/mp4");
@@ -183,7 +188,9 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
     videoText.append(videoAnchor);
     mediaEl.append(videoSrc, videoText);
   }
-  mediaEl.classList.add("modal-wp-view-imgwp-img");
+  mediaEl.classList.add("modal-wp-view-imgwp-media");
+  mediaEl.setAttribute("width", "100%");
+  mediaEl.setAttribute("height", "100%");
 
   p.textContent = media.title;
 
