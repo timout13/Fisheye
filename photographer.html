@@ -11,14 +11,14 @@
     <title>Fisheye - photographe</title>
   </head>
   <body>
-    <header>
-      <a href="/">
-        <img src="assets/images/logo.png" class="logo" />
+    <header class="header" role="banner">
+      <a href="/"  aria-label="Acceuil">
+        <img src="assets/images/logo.png" class="logo"  alt="Logo de Fisheye" />
       </a>
     </header>
-    <main id="main">
+    <main id="main" role="main" aria-hidden="false">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">
+        <button class="contact_button" onclick="displayModal()" aria-label="Ouvrir le formulaire de contact">
           Contactez-moi
         </button>
       </div>
@@ -76,17 +76,19 @@
           </details>
         </form>
       </div>
-      <div class="photograph-wp">
+      <div class="photograph-wp" role="list">
         
       </div>
     </main>
-    <div class="modalwp modalwp-contact" id="contact_modal">
+    <div class="modalwp modalwp-contact" id="contact_modal" aria-hidden="true" role="dialog">
       <div class="modal">
         <header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <button class="modal-wp-close btn-close" onclick="closeModal()"  aria-label="Fermer la modal">
+            <img src="assets/icons/close.svg" aria-hidden="true"/>
+          </button>
         </header>
-        <form>
+        <form class="form-contact">
           <div>
             <label for="firstname">Prénom</label>
             <input type="text" name="firstname" />
@@ -97,14 +99,14 @@
             <label for="message">Votre message</label>
             <textarea name="message"></textarea>
           </div>
-          <button class="contact_button">Envoyer</button>
+          <button class="contact_button submit-btn" aria-label="Envoyer le formulaire de contact">Envoyer</button>
         </form>
       </div>
     </div>
-    <div class="modalwp modalwp-lightbox" id="lightbox_modal">
+    <div class="modalwp modalwp-lightbox" id="lightbox_modal" aria-hidden="true" role="dialog">
       <div class="modal">
         <div class="modal-wp-btnwp">
-          <button class="modal-wp-btnwp-btn btn-carousel" id="prev">
+          <button class="modal-wp-btnwp-btn btn-carousel" id="prev" aria-label="Image précédente">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="96"
@@ -130,7 +132,7 @@
               </defs>
             </svg>
           </button>
-          <button class="modal-wp-btnwp-btn btn-carousel" id="next">
+          <button class="modal-wp-btnwp-btn btn-carousel" id="next" aria-label="Image suivante">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="96"
@@ -157,7 +159,7 @@
             </svg>
           </button>
         </div>
-        <button class="modal-wp-close btn-close" onclick="closeModal()">
+        <button class="modal-wp-close btn-close" onclick="closeModal()" aria-label="Fermer la modal">
           <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
             <g clip-path="url(#clip0_120_794)">
               <path d="M57 19.23L52.77 15L36 31.77L19.23 15L15 19.23L31.77 36L15 52.77L19.23 57L36 40.23L52.77 57L57 52.77L40.23 36L57 19.23Z" fill="#911C1C"/>

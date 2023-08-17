@@ -41,6 +41,8 @@
   font-weight: 500;
   line-height: normal;
   white-space: nowrap;
+  border: 0;
+  background: 0;
 }
 .media-wp-text--like--liked {
   color: var(--color-primary);
@@ -143,14 +145,16 @@
   font-weight: 400;
   line-height: normal;
 }
-button.modal-wp-close.btn-close {
+.modal-wp-close.btn-close{
+  border: 0;
+  background: 0;
+  cursor: pointer;
+}
+.modalwp-lightbox .modal-wp-close.btn-close {
   position: absolute;
   top: 30px;
   right: 111px;
   z-index: 100;
-  border: 0;
-  background: 0;
-  cursor: pointer;
 }
 .modal-wp-btnwp {
   position: absolute;
@@ -227,11 +231,12 @@ form div {
   margin-bottom: 26px;
 }
 
-form input {
+form input, form textarea {
   width: 100%;
   height: 68px;
   border: none;
   border-radius: 5px;
+  padding: 10px;
 }
 /* Sort */
 .sort {

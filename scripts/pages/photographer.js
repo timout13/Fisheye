@@ -47,6 +47,7 @@ async function displayData(authorImgs, author) {
   const photographerModel = photographerTemplate(author);
   const lightboxWP = document.querySelector(".modalwp-lightbox .modal-wp");
   const { priceTag } = photographerModel.getAuthorBlock();
+  lightboxWP.setAttribute("role", "list");
   let totalLikes = 0;
   authorImgs.forEach((img, i) => {
     let srcMedia = getMediaPath(author, img);
@@ -172,20 +173,26 @@ async function init() {
   const carNext = document.querySelector("#next");
 
   document.addEventListener("keydown", e => { 
-    const modalShow = document.querySelector(".modalwp-lightbox");
-    
-    if (modalShow.className.includes("modalwp--show")) {
-      console.log(e.key);
-      if (e.key == "ArrowLeft") {
-        carouselArrow();
+    const allModalShow = document.querySelectorAll(".modalwp");
+    allModalShow.forEach(modalShow => {
+      if (modalShow.className.includes("modalwp--show")) {
+        console.log(e.key);
+        if (e.key == "Escape") {
+          modalShow.classList.remove("modalwp--show");
+          const main = document.querySelector("main");
+          const header = document.querySelector(".header");
+          modalShow.setAttribute("aria-hidden", "true");
+          header.setAttribute("aria-hidden", "false");
+          main.setAttribute("aria-hidden", "false");
+        } 
+        if (e.key == "ArrowLeft" && modalShow.className.includes("modalwp-lightbox")) {
+          carouselArrow();
+        }
+        if (e.key == "ArrowRight" && modalShow.className.includes("modalwp-lightbox")) {
+          carouselArrow(true);
+        }
       }
-      if (e.key == "ArrowRight") {
-        carouselArrow(true);
-      }
-      if (e.key == "Escape") {
-        modalShow.classList.remove("modalwp--show");
-      }
-    }
+    })
 })
   displayData(authorImgs, author);
 
