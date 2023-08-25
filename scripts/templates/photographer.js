@@ -65,13 +65,12 @@ function photographerTemplate(data) {
   return { name, picture, getUserCardDOM, getAuthorBlock };
 }
 // Create the media block in photographer page
-const likeEventListener = (e, mediaLike, hasBeenLiked) => {
+const likeEventListener = (e, mediaTxtLike, hasBeenLiked) => {
   /* For img */
-  let nbLikes = Number(mediaLike.textContent);
-  !hasBeenLiked ? mediaLike.classList.add("media-wp-text--like--liked") : mediaLike.classList.remove("media-wp-text--like--liked");
+  let nbLikes = Number(mediaTxtLike.textContent);
   !hasBeenLiked ? nbLikes++ : nbLikes--;
-  mediaLike.textContent = nbLikes;
-  mediaLike.append(e.target);
+  mediaTxtLike.textContent = nbLikes;
+
   /* For Page */
   let pageLikesText = document.querySelector(".priceAndLike-wp-like");
   let pageLikes = Number(pageLikesText.textContent);
@@ -82,8 +81,8 @@ const likeEventListener = (e, mediaLike, hasBeenLiked) => {
 const carouselOnClick = (id) => {
   const oldActive = document.querySelector("[data-active='true']");
   const activeArticle = document.querySelector(`[data-id='${Number(id)}']`);
-    oldActive && oldActive.removeAttribute("data-active");
-    activeArticle.setAttribute("data-active", true);
+  oldActive && oldActive.removeAttribute("data-active");
+  activeArticle.setAttribute("data-active", true);
   const allCarItem = document.querySelectorAll(".modal-wp-view");
   allCarItem.forEach((item) => {
     item.style.transform = `translateX(-${id * 1050}px)`;
@@ -120,37 +119,58 @@ const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   }
   mediaEl.classList.add("media-wp-mediawp-media");
   mediaEl.setAttribute("data-index", i);
+  mediaEl.setAttribute("tabindex", 0);
   /* Event Click Img */
-  mediaEl.addEventListener("click", (e) => {
+  function handleMediaEl(e) {
     const lightbox = document.querySelector(".modalwp-lightbox");
     const main = document.querySelector("main");
     const header = document.querySelector(".header");
+    const body = document.querySelector(".body");
+    body.classList.add("body--hidden");
     main.setAttribute("aria-hidden", "true");
     header.setAttribute("aria-hidden", "true");
     lightbox.classList.add("modalwp--show");
-    lightbox.setAttribute("aria-hidden","false")
+    lightbox.setAttribute("aria-hidden", "false");
     const iImg = e.target.getAttribute("data-index");
     carouselOnClick(iImg);
+  }
+  mediaEl.addEventListener("click", handleMediaEl);
+  mediaEl.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.keyCode === 13) {
+      handleMediaEl(e);
+    }
   });
   let mediaTitle = document.createElement("p");
   mediaTitle.classList.add("media-wp-text--title");
   mediaTitle.textContent = media.title;
   mediaTitle.setAttribute("aria-label", "Titre du média");
   /* Like Creation */
+  let mediaWpLike = document.createElement("div");
+  let mediaTxtLike = document.createElement("span");
   let mediaLike = document.createElement("button");
+  mediaWpLike.classList.add("media-wp-text--wp-like");
+  mediaTxtLike.classList.add("media-wp-text--wp-txt-like");
+  mediaTxtLike.classList.add("media-wp-text--like--liked");
   mediaLike.classList.add("media-wp-text--like");
-  mediaLike.setAttribute("aria-label", "J'aime");
-  mediaLike.textContent = media.likes;
+  mediaWpLike.setAttribute("aria-label", "J'aime");
+  mediaTxtLike.textContent = media.likes;
   let iLike = document.createElement("i");
   iLike.classList.add("fas", "fa-heart", "p-fa--img");
-  iLike.setAttribute("role", "button");
   let hasBeenLiked = false;
-  iLike.addEventListener("click", (e) => {
-    hasBeenLiked = likeEventListener(e, mediaLike, hasBeenLiked);
+  mediaLike.addEventListener("click", (e) => {
+    hasBeenLiked = likeEventListener(e, mediaTxtLike, hasBeenLiked);
   });
-  divText.classList.add('media-wp-text');
+  mediaLike.addEventListener("keydown", (e) => {
+    e.preventDefault();
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      hasBeenLiked = likeEventListener(e, mediaTxtLike, hasBeenLiked);
+    }
+    e.target.blur();
+  });
+  divText.classList.add("media-wp-text");
   mediaLike.appendChild(iLike);
-  divText.append(mediaTitle, mediaLike);
+  mediaWpLike.append(mediaTxtLike,mediaLike);
+  divText.append(mediaTitle, mediaWpLike);
   divMediaWp.append(mediaEl);
   divWp.append(divMediaWp, divText);
   if (!isSort) {
@@ -204,7 +224,7 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
   mediaEl.classList.add("modal-wp-view-imgwp-media");
   mediaEl.setAttribute("width", "100%");
   mediaEl.setAttribute("height", "100%");
-  
+
   p.textContent = media.title;
   p.setAttribute("aria-label", "Titre du média");
 

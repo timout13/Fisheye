@@ -10,7 +10,7 @@
     />
     <title>Fisheye - photographe</title>
   </head>
-  <body>
+  <body class="body">
     <header class="header" role="banner">
       <a href="/"  aria-label="Acceuil">
         <img src="assets/images/logo.png" class="logo"  alt="Logo de Fisheye" />
@@ -26,51 +26,54 @@
         <p class="click">Trier par</p>
 
         <form class="radios-filters">
-          <details class="custom-select">
+          <details class="custom-select" role="group" tabindex="0">
             <summary class="radios">
               <input
                 type="radio"
-                name="filter"
-                id="filtrer"
-                title="Filtrer"
+                name="trier"
+                id="trier"
+                title="Trier"
                 value="default"
                 checked
                 disabled
               />
               <input
                 type="radio"
-                name="filter"
+                name="trier"
                 id="popularite"
                 title="Popularité"
                 value="popularite"
+                aria-labelledby="label-pop"
               />
               <input
                 type="radio"
-                name="filter"
+                name="trier"
                 value="date"
                 id="date"
                 title="Date"
+                aria-labelledby="label-date"
               />
               <input
                 type="radio"
-                name="filter"
+                name="trier"
                 value="titre"
                 id="titre"
                 title="Titre"
+                aria-labelledby="label-titre"
               />
             </summary>
             <ul class="list">
               <li>
-                <label for="popularite">
+                <label id="label-pop" data-sort="popularite" for="popularite" tabindex="0">
                   Popularité
                   <span></span>
                 </label>
               </li>
               <li>
-                <label for="date">Date</label>
+                <label id="label-date" data-sort="date" for="date" tabindex="0">Date</label>
               </li>
               <li>
-                <label for="titre">Titre</label>
+                <label id="label-titre" data-sort="titre" for="titre" tabindex="0">Titre</label>
               </li>
             </ul>
           </details>

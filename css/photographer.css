@@ -1,7 +1,10 @@
 * {
   box-sizing: border-box;
 }
-
+.body{}
+.body--hidden{
+  overflow: hidden;
+}
 .photograph-header {
   background-color: #fafafa;
   height: 300px;

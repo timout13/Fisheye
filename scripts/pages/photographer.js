@@ -1,5 +1,5 @@
 async function getPhotographer() {
-  let url = "./data/photographers.json";
+  let url = "/data/photographers.json";
   let options = {
     method: "GET",
     headers: {
@@ -109,6 +109,26 @@ function compareByDate(a, b) {
   return 0;
 }
 
+function caseSelect(toCompare, authorImgs, author, photographWp) {
+  switch (toCompare) {
+    case "popularite":
+      console.log("pop");
+      filterImgs(authorImgs, compareByPop, author, photographWp);
+      break;
+    case "date":
+      console.log("date");
+      filterImgs(authorImgs, compareByDate, author, photographWp);
+      break;
+    case "titre":
+      console.log("titre");
+      filterImgs(authorImgs, compareByTitle, author, photographWp);
+      break;
+    default:
+      console.log("default");
+      break;
+  }
+}
+
 const filterImgs = (authorImgs, compareFunc, author, photographWp) => {
   authorImgs.sort(compareFunc);
   let dataSorted = displaySortedData(authorImgs, author);
@@ -168,19 +188,21 @@ async function init() {
   const { media, photographers } = await getPhotographer();
   const authorImgs = getAuthorImgs(media, idAuthor);
   const author = getAuthorById(idAuthor, photographers);
-  const allRadioFilter = document.querySelectorAll("input[name='filter']");
+  const allRadioSort = document.querySelectorAll("input[name='trier']");
+  const allLabelSort = document.querySelectorAll("label[data-sort]");
   const carPrev = document.querySelector("#prev");
   const carNext = document.querySelector("#next");
-
+  const cSelect = document.querySelector('.custom-select');
   document.addEventListener("keydown", e => { 
     const allModalShow = document.querySelectorAll(".modalwp");
     allModalShow.forEach(modalShow => {
       if (modalShow.className.includes("modalwp--show")) {
-        console.log(e.key);
         if (e.key == "Escape") {
           modalShow.classList.remove("modalwp--show");
           const main = document.querySelector("main");
           const header = document.querySelector(".header");
+          const body = document.querySelector(".body");
+          body.classList.remove('body--hidden');
           modalShow.setAttribute("aria-hidden", "true");
           header.setAttribute("aria-hidden", "false");
           main.setAttribute("aria-hidden", "false");
@@ -196,25 +218,9 @@ async function init() {
 })
   displayData(authorImgs, author);
 
-  allRadioFilter.forEach((radio) => {
+  allRadioSort.forEach((radio) => {
     radio.addEventListener("input", (e) => {
-      switch (radio.value) {
-        case "popularite":
-          console.log("pop");
-          filterImgs(authorImgs, compareByPop, author, photographWp);
-          break;
-        case "date":
-          console.log("date");
-          filterImgs(authorImgs, compareByDate, author, photographWp);
-          break;
-        case "titre":
-          console.log("titre");
-          filterImgs(authorImgs, compareByTitle, author, photographWp);
-          break;
-        default:
-          console.log("default");
-          break;
-      }
+      caseSelect(radio.value,authorImgs, author, photographWp);
     });
   });
 
@@ -224,6 +230,22 @@ async function init() {
   carNext.addEventListener("click", (e) => {
     carouselArrow(true);
   });
+
+  cSelect.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      cSelect.hasAttribute('open') ? cSelect.removeAttribute('open'):cSelect.setAttribute('open', true);
+    }
+  })
+
+  allLabelSort.forEach(labelSort => {
+    labelSort.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.keyCode === 13) {
+        let attr = labelSort.getAttribute('data-sort');
+        console.log(attr);
+        caseSelect(attr,authorImgs, author, photographWp);
+      }
+    })
+  })
 }
 
 init();
