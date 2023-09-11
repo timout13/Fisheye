@@ -88,6 +88,8 @@ const carouselOnClick = (id) => {
     item.style.transform = `translateX(-${id * 1050}px)`;
     item.setAttribute("data-offset", -id * 1050);
   });
+  const isVideo = document.querySelector("[data-active='true'] video");
+  isVideo && isVideo.focus();
 };
 
 /* Photograph-wp Elements */
@@ -106,6 +108,7 @@ const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
     mediaEl.setAttribute("alt", media.title);
   } else if (media.video) {
     mediaEl = document.createElement("video");
+
     let videoSrc = document.createElement("source");
     videoSrc.src = srcMedia;
     videoSrc.setAttribute("type", "video/mp4");
@@ -210,6 +213,7 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
   } else if (media.video) {
     mediaEl = document.createElement("video");
     mediaEl.controls = true;
+    mediaEl.setAttribute('tabindex', 0);
     let videoSrc = document.createElement("source");
     videoSrc.src = srcMedia;
     videoSrc.setAttribute("type", "video/mp4");

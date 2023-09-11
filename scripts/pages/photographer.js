@@ -155,7 +155,6 @@ const carouselArrow = (isNxt = false) => {
     const activeArticle = document.querySelector(
       `[data-id='${Number(nbItems)}']`
     );
-console.log(activeArticle);
     activeArticle.setAttribute("data-active", true);
     allCarItem.forEach((item) => {
       item.style.transform = `translateX(calc(${nbItems*-1050}px))`;
@@ -163,11 +162,9 @@ console.log(activeArticle);
     });
   } else {
     // Etat normal
-    console.log(isNxt);
     const activeArticle = isNxt
       ? document.querySelector(`[data-id='${Number(idActive) + 1}']`)
       : document.querySelector(`[data-id='${Number(idActive) - 1}']`);
-      console.log(activeArticle);
     oldActive && oldActive.removeAttribute("data-active");
     activeArticle.setAttribute("data-active", true);
     allCarItem.forEach((item) => {
@@ -178,6 +175,8 @@ console.log(activeArticle);
       item.setAttribute("data-offset", calc);
     });
   }
+  const isVideo = document.querySelector("[data-active='true'] video");
+  isVideo && isVideo.focus();
 };
 
 async function init() {
@@ -234,6 +233,8 @@ async function init() {
   cSelect.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.keyCode === 13) {
       cSelect.hasAttribute('open') ? cSelect.removeAttribute('open'):cSelect.setAttribute('open', true);
+      cSelect.hasAttribute('open') ? cSelect.setAttribute('aria-expanded',true):cSelect.setAttribute('aria-expanded',false);
+      
     }
   })
 
