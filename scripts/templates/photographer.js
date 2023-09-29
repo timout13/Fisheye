@@ -33,7 +33,7 @@ function photographerTemplate(data) {
     article.setAttribute("aria-labelledby", `photograph-${id}`);
     anchor.classList.add("photographer_card_header");
     anchor.setAttribute("aria-label", `Page de ${name}`);
-    anchor.href = `../../photographer.html?id=${id}`;
+    anchor.href = `./photographer.html?id=${id}`;
     img.classList.add("photographer_card_header_img");
     h2.classList.add("photographer_card_header_name");
     location.classList.add("photographer_card_location");
