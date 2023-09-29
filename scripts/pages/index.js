@@ -1,5 +1,5 @@
 async function getPhotographers() {
-  let url = "/data/photographers.json";
+  let url = "./data/photographers.json";
   let options = {
     method: "GET",
     headers: {
