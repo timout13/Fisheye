@@ -100,6 +100,7 @@
   background-color: rgba(0, 0, 0, 0.232);
   top: 0;
   left: 0;
+  z-index: 2;
 }
 .modalwp--show {
   display: block;
@@ -269,7 +270,7 @@ p.click {
   padding: 11px 0 10px 0;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  z-index: 0;
+  z-index: 1;
 }
 .priceAndLike-wp-like::after {
   content: "\f004";
@@ -362,7 +363,58 @@ summary:focus {
 details[open] summary:after {
   transform: rotate(-225deg) translate(50%, 0%);
 }
-
+.custom-select{
+  border: 0;
+  position: relative;
+}
+ .custom-select .custom-select-legend {
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #ddd;
+  list-style: none;
+  background: var(--color-primary);
+  width: calc(170px - 1rem);
+  color: #fff;
+  font-family: DM Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  cursor: pointer;
+}
+ .custom-select .custom-select-list {
+  width: 100%;
+  background: var(--color-primary);
+  position: absolute;
+  left: 0;
+  top: -4px;
+  padding: 1rem;
+  margin: 0;
+  box-sizing: border-box;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  list-style: none;
+  display: none;
+  z-index: 1;
+}
+.custom-select-list--show{
+  display: block!important;
+}
+ .custom-select .custom-select-list-item {
+  color: #fff;
+  font-family: DM Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+ .custom-select .custom-select-list-item label {
+  width: 100%;
+  display: block;
+}
 ul {
   width: 100%;
   background: var(--color-primary);
@@ -393,9 +445,15 @@ li:last-child {
   border-bottom: none;
 }
 
+input[type="radio"] {
+  counter-increment: radios;
+  appearance: none;
+  display: none;
+}
+
 /* FAKE SELECT */
 
-summary.radios {
+/* summary.radios {
   counter-reset: radios;
 }
 
@@ -403,11 +461,7 @@ summary.radios:before {
   content: var(--selection);
 }
 
-input[type="radio"] {
-  counter-increment: radios;
-  appearance: none;
-  display: none;
-}
+
 
 input[type="radio"]:checked {
   display: inline;
@@ -452,4 +506,4 @@ label span {
   height: 1rem;
   border: 1px solid #727272;
   border-radius: 3px;
-}
+} */

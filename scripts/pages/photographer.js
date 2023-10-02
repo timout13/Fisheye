@@ -58,13 +58,14 @@ async function displayData(authorImgs, author) {
   });
   getPriceAndLikesBlock(totalLikes, priceTag);
 }
+
 function displaySortedData(authorImgs, author) {
   const photographWP = document.querySelector(".photograph-wp");
   const lightboxWP = document.querySelector(".modalwp-lightbox .modal-wp");
   const lightboxArticle = lightboxWP.querySelectorAll(".modal-wp-view");
   let divWpArray = [];
-  lightboxArticle.forEach(article => article.remove());
-  authorImgs.forEach((img,i) => {
+  lightboxArticle.forEach((article) => article.remove());
+  authorImgs.forEach((img, i) => {
     let srcMedia = getMediaPath(author, img);
     divWpArray.push(imageTemplate(i, photographWP, img, srcMedia, true));
     carouselElement(i, lightboxWP, img, srcMedia);
@@ -157,8 +158,8 @@ const carouselArrow = (isNxt = false) => {
     );
     activeArticle.setAttribute("data-active", true);
     allCarItem.forEach((item) => {
-      item.style.transform = `translateX(calc(${nbItems*-1050}px))`;
-      item.setAttribute("data-offset", `${nbItems*-1050}`);
+      item.style.transform = `translateX(calc(${nbItems * -1050}px))`;
+      item.setAttribute("data-offset", `${nbItems * -1050}`);
     });
   } else {
     // Etat normal
@@ -179,6 +180,28 @@ const carouselArrow = (isNxt = false) => {
   isVideo && isVideo.focus();
 };
 
+const displaySelect = (cSelect) => {
+  const cSelectList = document.querySelector(".custom-select-list");
+  if (cSelectList.classList.contains("custom-select-list--show")) {
+    cSelect.setAttribute("aria-expanded", false);
+    cSelectList.classList.remove("custom-select-list--show");
+  } else {
+    cSelectList.classList.add("custom-select-list--show");
+    cSelect.setAttribute("aria-expanded", true);
+  }
+};
+
+const handleSort = (cSelect,labelSort, authorImgs, author, photographWp) => {
+  const c = document.querySelector(".custom-select-list");
+  console.log(c);
+  console.log(cSelect);
+  c.classList.remove("custom-select-list--show");
+  cSelect.setAttribute("aria-expanded", false);
+  let attr = labelSort.getAttribute("data-sort");
+  caseSelect(attr, authorImgs, author, photographWp);
+};
+
+/* INIT PAGE */
 async function init() {
   const photographWp = document.querySelector(".photograph-wp");
   // Récupère les datas des photographes
@@ -187,42 +210,49 @@ async function init() {
   const { media, photographers } = await getPhotographer();
   const authorImgs = getAuthorImgs(media, idAuthor);
   const author = getAuthorById(idAuthor, photographers);
-  const allRadioSort = document.querySelectorAll("input[name='trier']");
   const allLabelSort = document.querySelectorAll("label[data-sort]");
   const carPrev = document.querySelector("#prev");
   const carNext = document.querySelector("#next");
-  const cSelect = document.querySelector('.custom-select');
-  document.addEventListener("keydown", e => { 
+  const cSelect = document.querySelector(".custom-select-legend");
+
+  // Display 
+  displayData(authorImgs, author);
+
+  /*  
+    Init Modal behaviour 
+    Keyboard mapping => Escape & ArrowLeft/ArrowRight
+  */
+  document.addEventListener("keydown", (e) => {
     const allModalShow = document.querySelectorAll(".modalwp");
-    allModalShow.forEach(modalShow => {
+    allModalShow.forEach((modalShow) => {
       if (modalShow.className.includes("modalwp--show")) {
         if (e.key == "Escape") {
           modalShow.classList.remove("modalwp--show");
           const main = document.querySelector("main");
           const header = document.querySelector(".header");
           const body = document.querySelector(".body");
-          body.classList.remove('body--hidden');
+          body.classList.remove("body--hidden");
           modalShow.setAttribute("aria-hidden", "true");
           header.setAttribute("aria-hidden", "false");
           main.setAttribute("aria-hidden", "false");
-        } 
-        if (e.key == "ArrowLeft" && modalShow.className.includes("modalwp-lightbox")) {
+        }
+        if (
+          e.key == "ArrowLeft" &&
+          modalShow.className.includes("modalwp-lightbox")
+        ) {
           carouselArrow();
         }
-        if (e.key == "ArrowRight" && modalShow.className.includes("modalwp-lightbox")) {
+        if (
+          e.key == "ArrowRight" &&
+          modalShow.className.includes("modalwp-lightbox")
+        ) {
           carouselArrow(true);
         }
       }
-    })
-})
-  displayData(authorImgs, author);
-
-  allRadioSort.forEach((radio) => {
-    radio.addEventListener("input", (e) => {
-      caseSelect(radio.value,authorImgs, author, photographWp);
     });
   });
-
+ 
+  /* Carousel -- Arrow's behaviour on click */
   carPrev.addEventListener("click", (e) => {
     carouselArrow();
   });
@@ -230,23 +260,27 @@ async function init() {
     carouselArrow(true);
   });
 
-  cSelect.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.keyCode === 13) {
-      cSelect.hasAttribute('open') ? cSelect.removeAttribute('open'):cSelect.setAttribute('open', true);
-      cSelect.hasAttribute('open') ? cSelect.setAttribute('aria-expanded',true):cSelect.setAttribute('aria-expanded',false);
-      
+  /* Custom Select -- Hide/Show Dropdown Events */
+  cSelect.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.keyCode === 13) {
+      displaySelect(cSelect);
     }
-  })
+  });
+  cSelect.addEventListener("click", (e) => {
+    displaySelect(cSelect);
+  });
 
-  allLabelSort.forEach(labelSort => {
-    labelSort.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.keyCode === 13) {
-        let attr = labelSort.getAttribute('data-sort');
-        console.log(attr);
-        caseSelect(attr,authorImgs, author, photographWp);
+  /* Custom Select Inputs -- Sort Events */
+  allLabelSort.forEach((labelSort) => {
+    labelSort.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.keyCode === 13) {
+        handleSort(cSelect, labelSort, authorImgs, author, photographWp);
       }
+    });
+    labelSort.addEventListener('click', (e) => {
+      handleSort(cSelect, labelSort,authorImgs, author, photographWp);
     })
-  })
+  });
 }
 
 init();

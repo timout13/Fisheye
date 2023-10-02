@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <link
       href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
@@ -12,30 +12,99 @@
   </head>
   <body class="body">
     <header class="header" role="banner">
-      <a href="./"  aria-label="Acceuil">
-        <img src="assets/images/logo.png" class="logo"  alt="Logo de Fisheye" />
+      <a href="./" aria-label="Acceuil">
+        <img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye" />
       </a>
     </header>
     <main id="main" role="main" aria-hidden="false">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()" aria-label="Ouvrir le formulaire de contact">
+        <button
+          class="contact_button"
+          onclick="displayModal()"
+          aria-label="Ouvrir le formulaire de contact"
+        >
           Contactez-moi
         </button>
       </div>
       <div class="sort sort--photograph">
-        <p class="click">Trier par</p>
-
+        <p class="click">Trier par:</p>
+          <fieldset class="custom-select">
+            <legend class="custom-select-legend" aria-expanded="false"
+            aria-controls="custom-select-list"
+            role="group"
+            tabindex="0">Trier</legend>
+            <ul class="custom-select-list">
+              <li class="custom-select-list-item">
+                <label
+                id="label-pop"
+                data-sort="popularite"
+                for="popularite"
+                tabindex="0"
+                >
+                <input
+                  type="radio"
+                  name="trier"
+                  id="popularite"
+                  title="Popularité"
+                  value="popularite"
+                  aria-labelledby="label-pop"
+                />
+                  Popularité
+                </label>
+              </li>
+              <li class="custom-select-list-item">
+                <label id="label-date" data-sort="date" for="date" tabindex="0"
+                >
+                <input
+                type="radio"
+                name="trier"
+                value="date"
+                id="date"
+                title="Date"
+                aria-labelledby="label-date"
+              />
+              Date
+              </label
+            >
+              </li>
+              <li class="custom-select-list-item">
+                <label
+                id="label-titre"
+                data-sort="titre"
+                for="titre"
+                tabindex="0"
+                >
+                Titre
+                <input
+                  type="radio"
+                  name="trier"
+                  value="titre"
+                  id="titre"
+                  title="Titre"
+                  aria-labelledby="label-titre"
+                />
+                </label>
+              </li>
+            </ul>
+          </fieldset>
         <form class="radios-filters">
-          <details class="custom-select" aria-expanded="false" aria-controls="custom-select" role="group" tabindex="0">
+          <!-- <details
+            class="custom-select"
+            aria-expanded="false"
+            aria-controls="custom-select"
+            role="group"
+            tabindex="0"
+          >
             <summary class="radios" id="custom-select">
+             
               <input
                 type="radio"
                 name="trier"
-                id="trier"
+                id="popularite"
                 title="Trier"
-                value="default"
+                value="popularite"
+                aria-labelledby="label-pop"
                 checked
-                disabled
               />
               <input
                 type="radio"
@@ -64,31 +133,55 @@
             </summary>
             <ul class="list">
               <li>
-                <label id="label-pop" data-sort="popularite" for="popularite" tabindex="0">
+                <label
+                  id="label-pop"
+                  data-sort="popularite"
+                  for="popularite"
+                  tabindex="0"
+                >
                   Popularité
                   <span></span>
                 </label>
               </li>
               <li>
-                <label id="label-date" data-sort="date" for="date" tabindex="0">Date</label>
+                <label id="label-date" data-sort="date" for="date" tabindex="0"
+                  >Date</label
+                >
               </li>
               <li>
-                <label id="label-titre" data-sort="titre" for="titre" tabindex="0">Titre</label>
+                <label
+                  id="label-titre"
+                  data-sort="titre"
+                  for="titre"
+                  tabindex="0"
+                  >Titre</label
+                >
               </li>
             </ul>
-          </details>
+          </details> -->
         </form>
       </div>
-      <div class="photograph-wp" role="list">
-        
-      </div>
+      <div class="photograph-wp" role="list"></div>
     </main>
-    <div class="modalwp modalwp-contact" id="contact_modal" aria-hidden="true" role="dialog">
+    <div
+      class="modalwp modalwp-contact"
+      id="contact_modal"
+      aria-hidden="true"
+      role="dialog"
+    >
       <div class="modal">
         <header>
           <h2>Contactez-moi</h2>
-          <button class="modal-wp-close btn-close" onclick="closeModal()"  aria-label="Fermer la modal">
-            <img src="assets/icons/close.svg" aria-hidden="true"/>
+          <button
+            class="modal-wp-close btn-close"
+            onclick="closeModal()"
+            aria-label="Fermer la modal"
+          >
+            <img
+              src="assets/icons/close.svg"
+              alt="Fermer la modale"
+              aria-hidden="true"
+            />
           </button>
         </header>
         <form class="form-contact">
@@ -102,14 +195,28 @@
             <label for="message">Votre message</label>
             <textarea name="message"></textarea>
           </div>
-          <button class="contact_button submit-btn" aria-label="Envoyer le formulaire de contact">Envoyer</button>
+          <button
+            class="contact_button submit-btn"
+            aria-label="Envoyer le formulaire de contact"
+          >
+            Envoyer
+          </button>
         </form>
       </div>
     </div>
-    <div class="modalwp modalwp-lightbox" id="lightbox_modal" aria-hidden="true" role="dialog">
+    <div
+      class="modalwp modalwp-lightbox"
+      id="lightbox_modal"
+      aria-hidden="true"
+      role="dialog"
+    >
       <div class="modal">
         <div class="modal-wp-btnwp">
-          <button class="modal-wp-btnwp-btn btn-carousel" id="prev" aria-label="Image précédente">
+          <button
+            class="modal-wp-btnwp-btn btn-carousel"
+            id="prev"
+            aria-label="Image précédente"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="96"
@@ -135,7 +242,11 @@
               </defs>
             </svg>
           </button>
-          <button class="modal-wp-btnwp-btn btn-carousel" id="next" aria-label="Image suivante">
+          <button
+            class="modal-wp-btnwp-btn btn-carousel"
+            id="next"
+            aria-label="Image suivante"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="96"
@@ -143,14 +254,14 @@
               viewBox="0 0 96 96"
               fill="none"
             >
-              <g clip-path="url(#clip0_120_800)">
+              <g clip-path="url(#clip0_120_801)">
                 <path
                   d="M61.6399 66.36L43.3199 48L61.6399 29.64L55.9999 24L31.9999 48L55.9999 72L61.6399 66.36Z"
                   fill="#911C1C"
                 />
               </g>
               <defs>
-                <clipPath id="clip0_120_800">
+                <clipPath id="clip0_120_801">
                   <rect
                     width="96"
                     height="96"
@@ -162,20 +273,32 @@
             </svg>
           </button>
         </div>
-        <button class="modal-wp-close btn-close" onclick="closeModal()" aria-label="Fermer la modal">
-          <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
+        <button
+          class="modal-wp-close btn-close"
+          onclick="closeModal()"
+          aria-label="Fermer la modal"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="72"
+            height="72"
+            viewBox="0 0 72 72"
+            fill="none"
+          >
             <g clip-path="url(#clip0_120_794)">
-              <path d="M57 19.23L52.77 15L36 31.77L19.23 15L15 19.23L31.77 36L15 52.77L19.23 57L36 40.23L52.77 57L57 52.77L40.23 36L57 19.23Z" fill="#911C1C"/>
+              <path
+                d="M57 19.23L52.77 15L36 31.77L19.23 15L15 19.23L31.77 36L15 52.77L19.23 57L36 40.23L52.77 57L57 52.77L40.23 36L57 19.23Z"
+                fill="#911C1C"
+              />
             </g>
             <defs>
               <clipPath id="clip0_120_794">
-                <rect width="72" height="72" fill="white"/>
+                <rect width="72" height="72" fill="white" />
               </clipPath>
             </defs>
           </svg>
         </button>
-        <div class="modal-wp">
-        </div>
+        <div class="modal-wp"></div>
       </div>
     </div>
     <script
