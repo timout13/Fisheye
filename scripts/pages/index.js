@@ -11,6 +11,7 @@ async function getPhotographers() {
     let allMembers = await allMembersOrigin.json();
     return allMembers;
   } catch {
+    // eslint-disable-next-line no-undef
     console.log(err);
   }
 }
@@ -18,6 +19,7 @@ async function getPhotographers() {
 async function displayData(photographers) {
   const photographersSection = document.querySelector(".photographer_section");
   photographers.forEach((photographer) => {
+    // eslint-disable-next-line no-undef
     const photographerModel = photographerTemplate(photographer);
     const userCardDOM = photographerModel.getUserCardDOM();
     photographersSection.appendChild(userCardDOM);

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 function photographerTemplate(data) {
   const { name, portrait, id, city, country, tagline, price } = data;
 
@@ -93,6 +94,7 @@ const carouselOnClick = (id) => {
 };
 
 /* Photograph-wp Elements */
+// eslint-disable-next-line no-unused-vars
 const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   let divWp = document.createElement("div");
   divWp.classList.add("media-wp");
@@ -116,7 +118,7 @@ const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
     let videoText = document.createElement("p");
     videoAnchor.textContent = "un lien pour télécharger la vidéo.";
     videoAnchor.href = srcMedia;
-    videoText.textContent = `Votre navigateur ne prend pas en charge les vidéos HTML5. Voici`;
+    videoText.textContent = "Votre navigateur ne prend pas en charge les vidéos HTML5. Voici";
     videoText.append(videoAnchor);
     mediaEl.append(videoSrc, videoText);
   }
@@ -165,7 +167,7 @@ const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   });
   mediaLike.addEventListener("keydown", (e) => {
     e.preventDefault();
-    if (e.key === 'Enter' || e.keyCode === 13) {
+    if (e.key === "Enter" || e.keyCode === 13) {
       hasBeenLiked = likeEventListener(e, mediaTxtLike, hasBeenLiked);
     }
     e.target.blur();
@@ -183,6 +185,7 @@ const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   }
 };
 
+// eslint-disable-next-line no-unused-vars
 const getPriceAndLikesBlock = (totalLikes, priceTag) => {
   const div = document.createElement("div");
   div.classList.add("priceAndLike-wp");
@@ -191,9 +194,11 @@ const getPriceAndLikesBlock = (totalLikes, priceTag) => {
   pLikes.textContent = totalLikes;
   priceTag.classList.add("priceAndLike-wp-price");
   div.append(pLikes, priceTag);
+  // eslint-disable-next-line no-undef
   main.prepend(div);
 };
 
+// eslint-disable-next-line no-unused-vars
 const carouselElement = (i, lightbox, media, srcMedia) => {
   const article = document.createElement("article");
   const div = document.createElement("div");
@@ -213,7 +218,7 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
   } else if (media.video) {
     mediaEl = document.createElement("video");
     mediaEl.controls = true;
-    mediaEl.setAttribute('tabindex', 0);
+    mediaEl.setAttribute("tabindex", 0);
     let videoSrc = document.createElement("source");
     videoSrc.src = srcMedia;
     videoSrc.setAttribute("type", "video/mp4");
@@ -221,7 +226,7 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
     let videoText = document.createElement("p");
     videoAnchor.textContent = "un lien pour télécharger la vidéo.";
     videoAnchor.href = srcMedia;
-    videoText.textContent = `Votre navigateur ne prend pas en charge les vidéos HTML5. Voici`;
+    videoText.textContent = "Votre navigateur ne prend pas en charge les vidéos HTML5. Voici";
     videoText.append(videoAnchor);
     mediaEl.append(videoSrc, videoText);
   }

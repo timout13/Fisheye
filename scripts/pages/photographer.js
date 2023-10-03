@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 async function getPhotographer() {
   let url = "./data/photographers.json";
   let options = {
@@ -11,6 +12,7 @@ async function getPhotographer() {
     let allMembers = await allMembersOrigin.json();
     return allMembers;
   } catch {
+    // eslint-disable-next-line no-undef
     console.log(err);
   }
 }
@@ -38,12 +40,13 @@ const getMediaPath = (author, img) => {
   name = name.split(" ");
   name = name[0].split("-");
   name = name[1] != undefined ? `${name[0]} ${name[1]}` : name[0];
-  src = `assets/images/${name}/${mediaName}`;
+  let src = `assets/images/${name}/${mediaName}`;
   return src;
 };
 
 async function displayData(authorImgs, author) {
   const photographWP = document.querySelector(".photograph-wp");
+  // eslint-disable-next-line no-undef
   const photographerModel = photographerTemplate(author);
   const lightboxWP = document.querySelector(".modalwp-lightbox .modal-wp");
   const { priceTag } = photographerModel.getAuthorBlock();
@@ -52,10 +55,13 @@ async function displayData(authorImgs, author) {
   authorImgs.forEach((img, i) => {
     let srcMedia = getMediaPath(author, img);
     // Photograph-Wp Element ↓
+    // eslint-disable-next-line no-undef
     imageTemplate(i, photographWP, img, srcMedia);
+    // eslint-disable-next-line no-undef
     carouselElement(i, lightboxWP, img, srcMedia);
     totalLikes += img.likes;
   });
+  // eslint-disable-next-line no-undef
   getPriceAndLikesBlock(totalLikes, priceTag);
 }
 
@@ -67,7 +73,9 @@ function displaySortedData(authorImgs, author) {
   lightboxArticle.forEach((article) => article.remove());
   authorImgs.forEach((img, i) => {
     let srcMedia = getMediaPath(author, img);
+    // eslint-disable-next-line no-undef
     divWpArray.push(imageTemplate(i, photographWP, img, srcMedia, true));
+    // eslint-disable-next-line no-undef
     carouselElement(i, lightboxWP, img, srcMedia);
   });
   return divWpArray;
@@ -145,10 +153,10 @@ const carouselArrow = (isNxt = false) => {
   oldActive && oldActive.removeAttribute("data-active");
   if (Number(idActive) == nbItems && isNxt) {
     // Sup à 10
-    const activeArticle = document.querySelector(`[data-id='0']`);
+    const activeArticle = document.querySelector("[data-id='0']");
     activeArticle.setAttribute("data-active", true);
     allCarItem.forEach((item) => {
-      item.style.transform = `translateX(0)`;
+      item.style.transform = "translateX(0)";
       item.setAttribute("data-offset", "0");
     });
   } else if (Number(idActive) == 0 && !isNxt) {
@@ -169,8 +177,8 @@ const carouselArrow = (isNxt = false) => {
     oldActive && oldActive.removeAttribute("data-active");
     activeArticle.setAttribute("data-active", true);
     allCarItem.forEach((item) => {
-      itemOffSet = item.getAttribute("data-offset");
-      itemIndex = item.getAttribute("data-id");
+      let itemOffSet = item.getAttribute("data-offset");
+      let itemIndex = item.getAttribute("data-id");
       let calc = isNxt ? Number(itemOffSet) - 1050 : Number(itemOffSet) + 1050;
       item.style.transform = `translateX(${calc}px)`;
       item.setAttribute("data-offset", calc);
@@ -182,18 +190,21 @@ const carouselArrow = (isNxt = false) => {
 
 const displaySelect = (cSelect) => {
   const cSelectList = document.querySelector(".custom-select-list");
+  console.log("là");
   if (cSelectList.classList.contains("custom-select-list--show")) {
+    console.log("ici");
     cSelect.setAttribute("aria-expanded", false);
     cSelectList.classList.remove("custom-select-list--show");
   } else {
+    console.log("ooo");
     cSelectList.classList.add("custom-select-list--show");
     cSelect.setAttribute("aria-expanded", true);
   }
 };
 
-const handleSort = (cSelect,labelSort, authorImgs, author, photographWp) => {
+const handleSort = (cSelect, labelSort, authorImgs, author, photographWp) => {
   const c = document.querySelector(".custom-select-list");
-  
+  console.log("test");
   c.classList.remove("custom-select-list--show");
   cSelect.setAttribute("aria-expanded", false);
   let attr = labelSort.getAttribute("data-sort");
@@ -214,7 +225,7 @@ async function init() {
   const carNext = document.querySelector("#next");
   const cSelect = document.querySelector(".custom-select-legend-btn");
 
-  // Display 
+  // Display
   displayData(authorImgs, author);
 
   /*  
@@ -250,7 +261,7 @@ async function init() {
       }
     });
   });
- 
+
   /* Carousel -- Arrow's behaviour on click */
   carPrev.addEventListener("click", (e) => {
     carouselArrow();
@@ -261,7 +272,7 @@ async function init() {
 
   /* Custom Select -- Hide/Show Dropdown Events */
   cSelect.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.keyCode === 13) {
+    if (e.key === "Enter") {
       displaySelect(cSelect);
     }
   });
@@ -276,9 +287,9 @@ async function init() {
         handleSort(cSelect, labelSort, authorImgs, author, photographWp);
       }
     });
-    labelSort.addEventListener('click', (e) => {
-      handleSort(cSelect, labelSort,authorImgs, author, photographWp);
-    })
+    labelSort.addEventListener("click", (e) => {
+      handleSort(cSelect, labelSort, authorImgs, author, photographWp);
+    });
   });
 }
 
