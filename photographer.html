@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
+    <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <link
       href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
@@ -29,11 +29,12 @@
       <div class="sort sort--photograph">
         <p class="click">Trier par:</p>
           <fieldset class="custom-select">
-            <legend class="custom-select-legend" aria-expanded="false"
+            <legend class="custom-select-legend"
             aria-controls="custom-select-list"
-            role="group"
+            aria-expanded="false"
+            role="button"
             tabindex="0">Trier</legend>
-            <ul class="custom-select-list">
+            <ul class="custom-select-list" id="custom-select-list">
               <li class="custom-select-list-item">
                 <label
                 id="label-pop"
@@ -88,77 +89,7 @@
             </ul>
           </fieldset>
         <form class="radios-filters">
-          <!-- <details
-            class="custom-select"
-            aria-expanded="false"
-            aria-controls="custom-select"
-            role="group"
-            tabindex="0"
-          >
-            <summary class="radios" id="custom-select">
-             
-              <input
-                type="radio"
-                name="trier"
-                id="popularite"
-                title="Trier"
-                value="popularite"
-                aria-labelledby="label-pop"
-                checked
-              />
-              <input
-                type="radio"
-                name="trier"
-                id="popularite"
-                title="Popularité"
-                value="popularite"
-                aria-labelledby="label-pop"
-              />
-              <input
-                type="radio"
-                name="trier"
-                value="date"
-                id="date"
-                title="Date"
-                aria-labelledby="label-date"
-              />
-              <input
-                type="radio"
-                name="trier"
-                value="titre"
-                id="titre"
-                title="Titre"
-                aria-labelledby="label-titre"
-              />
-            </summary>
-            <ul class="list">
-              <li>
-                <label
-                  id="label-pop"
-                  data-sort="popularite"
-                  for="popularite"
-                  tabindex="0"
-                >
-                  Popularité
-                  <span></span>
-                </label>
-              </li>
-              <li>
-                <label id="label-date" data-sort="date" for="date" tabindex="0"
-                  >Date</label
-                >
-              </li>
-              <li>
-                <label
-                  id="label-titre"
-                  data-sort="titre"
-                  for="titre"
-                  tabindex="0"
-                  >Titre</label
-                >
-              </li>
-            </ul>
-          </details> -->
+          
         </form>
       </div>
       <div class="photograph-wp" role="list"></div>
@@ -187,13 +118,13 @@
         <form class="form-contact">
           <div>
             <label for="firstname">Prénom</label>
-            <input type="text" name="firstname" />
+            <input type="text" name="firstname" id="firstname" />
             <label for="lastname">Nom</label>
-            <input type="text" name="lastname" />
+            <input type="text" name="lastname" id="lastname" />
             <label for="email">Email</label>
-            <input type="email" name="email" />
+            <input type="email" name="email" id="email" />
             <label for="message">Votre message</label>
-            <textarea name="message"></textarea>
+            <textarea name="message" id="message"></textarea>
           </div>
           <button
             class="contact_button submit-btn"

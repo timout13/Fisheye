@@ -193,8 +193,7 @@ const displaySelect = (cSelect) => {
 
 const handleSort = (cSelect,labelSort, authorImgs, author, photographWp) => {
   const c = document.querySelector(".custom-select-list");
-  console.log(c);
-  console.log(cSelect);
+  
   c.classList.remove("custom-select-list--show");
   cSelect.setAttribute("aria-expanded", false);
   let attr = labelSort.getAttribute("data-sort");
