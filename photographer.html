@@ -28,20 +28,20 @@
       </div>
       <div class="sort sort--photograph">
         <p class="click">Trier par:</p>
-          <fieldset class="custom-select">
-            <legend class="custom-select-legend"
-            aria-controls="custom-select-list"
-            aria-expanded="false"
-            role="button"
-            tabindex="0">Trier</legend>
-            <ul class="custom-select-list" id="custom-select-list">
-              <li class="custom-select-list-item">
-                <label
+        <fieldset class="custom-select">
+          <legend class="custom-select-legend" tabindex="0">
+            <button class="custom-select-legend-btn" aria-controls="custom-select-list" aria-expanded="false">
+              Trier
+            </button>
+          </legend>
+          <ul class="custom-select-list" id="custom-select-list">
+            <li class="custom-select-list-item">
+              <label
                 id="label-pop"
                 data-sort="popularite"
                 for="popularite"
                 tabindex="0"
-                >
+              >
                 <input
                   type="radio"
                   name="trier"
@@ -50,31 +50,29 @@
                   value="popularite"
                   aria-labelledby="label-pop"
                 />
-                  Popularité
-                </label>
-              </li>
-              <li class="custom-select-list-item">
-                <label id="label-date" data-sort="date" for="date" tabindex="0"
-                >
+                Popularité
+              </label>
+            </li>
+            <li class="custom-select-list-item">
+              <label id="label-date" data-sort="date" for="date" tabindex="0">
                 <input
-                type="radio"
-                name="trier"
-                value="date"
-                id="date"
-                title="Date"
-                aria-labelledby="label-date"
-              />
-              Date
-              </label
-            >
-              </li>
-              <li class="custom-select-list-item">
-                <label
+                  type="radio"
+                  name="trier"
+                  value="date"
+                  id="date"
+                  title="Date"
+                  aria-labelledby="label-date"
+                />
+                Date
+              </label>
+            </li>
+            <li class="custom-select-list-item">
+              <label
                 id="label-titre"
                 data-sort="titre"
                 for="titre"
                 tabindex="0"
-                >
+              >
                 Titre
                 <input
                   type="radio"
@@ -84,13 +82,11 @@
                   title="Titre"
                   aria-labelledby="label-titre"
                 />
-                </label>
-              </li>
-            </ul>
-          </fieldset>
-        <form class="radios-filters">
-          
-        </form>
+              </label>
+            </li>
+          </ul>
+        </fieldset>
+        <form class="radios-filters"></form>
       </div>
       <div class="photograph-wp" role="list"></div>
     </main>

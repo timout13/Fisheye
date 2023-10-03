@@ -212,7 +212,7 @@ async function init() {
   const allLabelSort = document.querySelectorAll("label[data-sort]");
   const carPrev = document.querySelector("#prev");
   const carNext = document.querySelector("#next");
-  const cSelect = document.querySelector(".custom-select-legend");
+  const cSelect = document.querySelector(".custom-select-legend-btn");
 
   // Display 
   displayData(authorImgs, author);

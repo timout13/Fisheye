@@ -1,8 +1,9 @@
 * {
   box-sizing: border-box;
 }
-.body{}
-.body--hidden{
+.body {
+}
+.body--hidden {
   overflow: hidden;
 }
 .photograph-header {
@@ -142,14 +143,14 @@
   width: 1050px;
 }
 .modal-wp-view-imgwp-title {
-  color: #901C1C;
+  color: #901c1c;
   font-family: DM Sans;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
-.modal-wp-close.btn-close{
+.modal-wp-close.btn-close {
   border: 0;
   background: 0;
   cursor: pointer;
@@ -188,8 +189,8 @@
 }
 .media-wp-text {
   display: flex;
-    justify-content: space-between;
-    gap: 10px;
+  justify-content: space-between;
+  gap: 10px;
 }
 .modal-wp-view-imgwp {
   max-height: calc(100% - 40px);
@@ -235,7 +236,8 @@ form div {
   margin-bottom: 26px;
 }
 
-form input, form textarea {
+form input,
+form textarea {
   width: 100%;
   height: 68px;
   border: none;
@@ -363,18 +365,21 @@ summary:focus {
 details[open] summary:after {
   transform: rotate(-225deg) translate(50%, 0%);
 }
-.custom-select{
+.custom-select {
   border: 0;
   position: relative;
 }
- .custom-select .custom-select-legend {
+.custom-select .custom-select-legend {
   padding: 1rem;
-  cursor: pointer;
   border-radius: 5px;
-  background-color: #ddd;
   list-style: none;
   background: var(--color-primary);
   width: calc(170px - 1rem);
+  cursor: pointer;
+}
+.custom-select .custom-select-legend-btn {
+  background: var(--color-primary);
+  width: 100%;
   color: #fff;
   font-family: DM Sans;
   font-size: 18px;
@@ -382,8 +387,10 @@ details[open] summary:after {
   font-weight: 700;
   line-height: normal;
   cursor: pointer;
+  border: 0;
+  text-align: left;
 }
- .custom-select .custom-select-list {
+.custom-select .custom-select-list {
   width: 100%;
   background: var(--color-primary);
   position: absolute;
@@ -400,10 +407,10 @@ details[open] summary:after {
   display: none;
   z-index: 1;
 }
-.custom-select-list--show{
-  display: block!important;
+.custom-select-list--show {
+  display: block !important;
 }
- .custom-select .custom-select-list-item {
+.custom-select .custom-select-list-item {
   color: #fff;
   font-family: DM Sans;
   font-size: 18px;
@@ -411,7 +418,7 @@ details[open] summary:after {
   font-weight: 700;
   line-height: normal;
 }
- .custom-select .custom-select-list-item label {
+.custom-select .custom-select-list-item label {
   width: 100%;
   display: block;
 }
