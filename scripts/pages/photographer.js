@@ -49,7 +49,7 @@ async function displayData(authorImgs, author) {
   // eslint-disable-next-line no-undef
   const photographerModel = photographerTemplate(author);
   const lightboxWP = document.querySelector(".modalwp-lightbox .modal-wp");
-  const { priceTag } = photographerModel.getAuthorBlock();
+  const {priceTag} = photographerModel.getAuthorBlock();
   lightboxWP.setAttribute("role", "list");
   let totalLikes = 0;
   authorImgs.forEach((img, i) => {
@@ -118,23 +118,25 @@ function compareByDate(a, b) {
   return 0;
 }
 
-function caseSelect(toCompare, authorImgs, author, photographWp) {
-  switch (toCompare) {
-    case "popularite":
-      console.log("pop");
-      filterImgs(authorImgs, compareByPop, author, photographWp);
-      break;
-    case "date":
-      console.log("date");
-      filterImgs(authorImgs, compareByDate, author, photographWp);
-      break;
-    case "titre":
-      console.log("titre");
-      filterImgs(authorImgs, compareByTitle, author, photographWp);
-      break;
-    default:
-      console.log("default");
-      break;
+function caseSelect({title, attr}, authorImgs, author, photographWp) {
+  changeSelectLabel(title);
+  switch (attr) {
+  case "popularite":
+    console.log("pop");
+    filterImgs(authorImgs, compareByPop, author, photographWp);
+    break;
+  case "date":
+    console.log("date");
+
+    filterImgs(authorImgs, compareByDate, author, photographWp);
+    break;
+  case "titre":
+    console.log("titre");
+    filterImgs(authorImgs, compareByTitle, author, photographWp);
+    break;
+  default:
+    console.log("default");
+    break;
   }
 }
 
@@ -208,9 +210,17 @@ const handleSort = (cSelect, labelSort, authorImgs, author, photographWp) => {
   console.log("test");
   c.classList.remove("custom-select-list--show");
   cSelect.setAttribute("aria-expanded", false);
-  let attr = labelSort.getAttribute("data-sort");
-  caseSelect(attr, authorImgs, author, photographWp);
+  const sort = {
+    title: labelSort.textContent,
+    attr: labelSort.getAttribute("data-sort")
+  };
+  caseSelect(sort, authorImgs, author, photographWp);
 };
+
+function changeSelectLabel(title) {
+  const cSelectBtn = document.querySelector(".custom-select-legend-btn");
+  cSelectBtn.textContent = title;
+}
 
 /* INIT PAGE */
 async function init() {
@@ -218,7 +228,7 @@ async function init() {
   // Récupère les datas des photographes
   const getAuthor = new URLSearchParams(document.location.search);
   const idAuthor = Number(getAuthor.get("id"));
-  const { media, photographers } = await getPhotographer();
+  const {media, photographers} = await getPhotographer();
   const authorImgs = getAuthorImgs(media, idAuthor);
   const author = getAuthorById(idAuthor, photographers);
   const allLabelSort = document.querySelectorAll("label[data-sort]");
