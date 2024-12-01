@@ -194,9 +194,10 @@ const displaySelect = (cSelect) => {
   if (cSelectList.classList.contains("custom-select-list--show")) {
     console.log("ici");
     cSelect.setAttribute("aria-expanded", false);
+    cSelect.classList.remove("open");
     cSelectList.classList.remove("custom-select-list--show");
   } else {
-    console.log("ooo");
+    cSelect.classList.add("open");
     cSelectList.classList.add("custom-select-list--show");
     cSelect.setAttribute("aria-expanded", true);
   }

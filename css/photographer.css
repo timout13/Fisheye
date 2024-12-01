@@ -370,14 +370,15 @@ details[open] summary:after {
   position: relative;
 }
 .custom-select .custom-select-legend {
-  padding: 1rem;
-  border-radius: 5px;
   list-style: none;
-  background: var(--color-primary);
   width: calc(170px - 1rem);
   cursor: pointer;
 }
 .custom-select .custom-select-legend-btn {
+  position: relative;
+  display: block;
+  padding: 1rem;
+  border-radius: 5px;
   background: var(--color-primary);
   width: 100%;
   color: #fff;
@@ -389,6 +390,21 @@ details[open] summary:after {
   cursor: pointer;
   border: 0;
   text-align: left;
+}
+.custom-select .custom-select-legend-btn::after {
+  position: absolute;
+  content: '';
+  width: 16px;
+  height: 11px;
+  color: white;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+  right: 18px;
+  background: url(../assets/icons/expand.svg) no-repeat;
+  transition: transform 0.2s ease-in-out;
+}
+.custom-select .custom-select-legend-btn.open::after {
+  transform: translateY(-50%) rotate(0deg);
 }
 .custom-select .custom-select-list {
   width: 100%;
