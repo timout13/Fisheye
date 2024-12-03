@@ -1,238 +1,253 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="assets/favicon.png" />
+<head>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/png" href="assets/favicon.png"/>
     <link
-      href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
+            rel="stylesheet"
     />
     <title>Fisheye - photographe</title>
-  </head>
-  <body class="body">
-    <header class="header" role="banner">
-      <a href="./" aria-label="Acceuil">
-        <img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye" />
-      </a>
-    </header>
-    <main id="main" role="main" aria-hidden="false">
-      <div class="photograph-header">
+</head>
+<body class="body">
+<header class="header" role="banner">
+    <a href="./" aria-label="Acceuil">
+        <img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye"/>
+    </a>
+</header>
+<main id="main" role="main" aria-hidden="false">
+    <template id="template-profil-header">
+        <div class="photograph-header">
+            <div class="photograph-header-profil"><h2 id="photograph_930">Ellie-Rose Wilkens</h2>
+                <h3>Paris, France</h3>
+                <p>Capturer des compositions complexes</p></div>
+            <button class="contact_button" onclick="displayModal()" aria-label="Ouvrir le formulaire de contact">
+                Contactez-moi
+            </button>
+            <img src="./assets/photographers/EllieRoseWilkens.jpg" alt="Photo de Ellie-Rose Wilkens"
+                 class="photograph-header-img"></div>
+    </template>
+    <div class="photograph-header">
         <button
-          class="contact_button"
-          onclick="displayModal()"
-          aria-label="Ouvrir le formulaire de contact"
+                class="contact_button"
+                onclick="displayModal()"
+                aria-label="Ouvrir le formulaire de contact"
         >
-          Contactez-moi
+            Contactez-moi
         </button>
-      </div>
-      <div class="sort sort--photograph">
+    </div>
+    <div class="sort sort--photograph">
         <p class="click">Trier par:</p>
         <fieldset class="custom-select">
-          <legend class="custom-select-legend">
-            <span role="button" class="custom-select-legend-btn" aria-controls="custom-select-list" aria-expanded="false" tabindex="0" aria-label="Trier les images">
+            <legend class="custom-select-legend">
+            <span role="button" class="custom-select-legend-btn" aria-controls="custom-select-list"
+                  aria-expanded="false" tabindex="0" aria-label="Trier les images">
               Trier
             </span>
-          </legend>
-          <ul class="custom-select-list" id="custom-select-list">
-            <li class="custom-select-list-item">
-              <label
-                id="label-pop"
-                data-sort="popularite"
-                for="popularite"
-                tabindex="0"
-              >
-                <input
-                  type="radio"
-                  name="trier"
-                  id="popularite"
-                  title="Popularité"
-                  value="popularite"
-                  aria-labelledby="label-pop"
-                />
-                Popularité
-              </label>
-            </li>
-            <li class="custom-select-list-item">
-              <label id="label-date" data-sort="date" for="date" tabindex="0">
-                <input
-                  type="radio"
-                  name="trier"
-                  value="date"
-                  id="date"
-                  title="Date"
-                  aria-labelledby="label-date"
-                />
-                Date
-              </label>
-            </li>
-            <li class="custom-select-list-item">
-              <label
-                id="label-titre"
-                data-sort="titre"
-                for="titre"
-                tabindex="0"
-              >
-                Titre
-                <input
-                  type="radio"
-                  name="trier"
-                  value="titre"
-                  id="titre"
-                  title="Titre"
-                  aria-labelledby="label-titre"
-                />
-              </label>
-            </li>
-          </ul>
+            </legend>
+            <ul class="custom-select-list" id="custom-select-list">
+                <li class="custom-select-list-item">
+                    <label
+                            id="label-pop"
+                            data-sort="popularite"
+                            for="popularite"
+                            tabindex="0"
+                    >
+                        <input
+                                type="radio"
+                                name="trier"
+                                id="popularite"
+                                title="Popularité"
+                                value="popularite"
+                                aria-labelledby="label-pop"
+                        />
+                        Popularité
+                    </label>
+                </li>
+                <li class="custom-select-list-item">
+                    <label id="label-date" data-sort="date" for="date" tabindex="0">
+                        <input
+                                type="radio"
+                                name="trier"
+                                value="date"
+                                id="date"
+                                title="Date"
+                                aria-labelledby="label-date"
+                        />
+                        Date
+                    </label>
+                </li>
+                <li class="custom-select-list-item">
+                    <label
+                            id="label-titre"
+                            data-sort="titre"
+                            for="titre"
+                            tabindex="0"
+                    >
+                        Titre
+                        <input
+                                type="radio"
+                                name="trier"
+                                value="titre"
+                                id="titre"
+                                title="Titre"
+                                aria-labelledby="label-titre"
+                        />
+                    </label>
+                </li>
+            </ul>
         </fieldset>
-      </div>
-      <div class="photograph-wp" role="list"></div>
-    </main>
-    <div
-      class="modalwp modalwp-contact"
-      id="contact_modal"
-      aria-hidden="true"
-      role="dialog"
-    >
-      <div class="modal">
+    </div>
+    <div class="photograph-wp" role="list"></div>
+</main>
+<div
+        class="modalwp modalwp-contact"
+        id="contact_modal"
+        aria-hidden="true"
+        role="dialog"
+>
+    <div class="modal">
         <header>
-          <h2>Contactez-moi</h2>
-          <button
-            class="modal-wp-close btn-close"
-            onclick="closeModal()"
-            aria-label="Fermer la modale"
-          >
-            <img
-              src="assets/icons/close.svg"
-              alt="Fermer la modale"
-              aria-hidden="true"
-            />
-          </button>
+            <h2>Contactez-moi</h2>
+            <button
+                    class="modal-wp-close btn-close"
+                    onclick="closeModal()"
+                    aria-label="Fermer la modale"
+            >
+                <img
+                        src="assets/icons/close.svg"
+                        alt="Fermer la modale"
+                        aria-hidden="true"
+                />
+            </button>
         </header>
         <form class="form-contact">
-          <div>
-            <label for="firstname">Prénom</label>
-            <input type="text" name="firstname" id="firstname" />
-            <label for="lastname">Nom</label>
-            <input type="text" name="lastname" id="lastname" />
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" />
-            <label for="message">Votre message</label>
-            <textarea name="message" id="message"></textarea>
-          </div>
-          <button
-            class="contact_button submit-btn"
-            aria-label="Envoyer le formulaire de contact"
-          >
-            Envoyer
-          </button>
+            <div>
+                <label for="firstname">Prénom</label>
+                <input type="text" name="firstname" id="firstname"/>
+                <label for="lastname">Nom</label>
+                <input type="text" name="lastname" id="lastname"/>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email"/>
+                <label for="message">Votre message</label>
+                <textarea name="message" id="message"></textarea>
+            </div>
+            <button
+                    class="contact_button submit-btn"
+                    aria-label="Envoyer le formulaire de contact"
+            >
+                Envoyer
+            </button>
         </form>
-      </div>
     </div>
-    <div
-      class="modalwp modalwp-lightbox"
-      id="lightbox_modal"
-      aria-hidden="true"
-      role="dialog"
-    >
-      <div class="modal">
+</div>
+<div
+        class="modalwp modalwp-lightbox"
+        id="lightbox_modal"
+        aria-hidden="true"
+        role="dialog"
+>
+    <div class="modal">
         <div class="modal-wp-btnwp">
-          <button
-            class="modal-wp-btnwp-btn btn-carousel"
-            id="prev"
-            aria-label="Image précédente"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="96"
-              height="96"
-              viewBox="0 0 96 96"
-              fill="none"
+            <button
+                    class="modal-wp-btnwp-btn btn-carousel"
+                    id="prev"
+                    aria-label="Image précédente"
             >
-              <g clip-path="url(#clip0_120_800)">
-                <path
-                  d="M61.6399 66.36L43.3199 48L61.6399 29.64L55.9999 24L31.9999 48L55.9999 72L61.6399 66.36Z"
-                  fill="#911C1C"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_120_800">
-                  <rect
-                    width="96"
-                    height="96"
-                    fill="white"
-                    transform="translate(96) rotate(90)"
-                  />
-                </clipPath>
-              </defs>
-            </svg>
-          </button>
-          <button
-            class="modal-wp-btnwp-btn btn-carousel"
-            id="next"
-            aria-label="Image suivante"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="96"
-              height="96"
-              viewBox="0 0 96 96"
-              fill="none"
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="96"
+                        height="96"
+                        viewBox="0 0 96 96"
+                        fill="none"
+                >
+                    <g clip-path="url(#clip0_120_800)">
+                        <path
+                                d="M61.6399 66.36L43.3199 48L61.6399 29.64L55.9999 24L31.9999 48L55.9999 72L61.6399 66.36Z"
+                                fill="#911C1C"
+                        />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_120_800">
+                            <rect
+                                    width="96"
+                                    height="96"
+                                    fill="white"
+                                    transform="translate(96) rotate(90)"
+                            />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </button>
+            <button
+                    class="modal-wp-btnwp-btn btn-carousel"
+                    id="next"
+                    aria-label="Image suivante"
             >
-              <g clip-path="url(#clip0_120_801)">
-                <path
-                  d="M61.6399 66.36L43.3199 48L61.6399 29.64L55.9999 24L31.9999 48L55.9999 72L61.6399 66.36Z"
-                  fill="#911C1C"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_120_801">
-                  <rect
-                    width="96"
-                    height="96"
-                    fill="white"
-                    transform="translate(96) rotate(90)"
-                  />
-                </clipPath>
-              </defs>
-            </svg>
-          </button>
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="96"
+                        height="96"
+                        viewBox="0 0 96 96"
+                        fill="none"
+                >
+                    <g clip-path="url(#clip0_120_801)">
+                        <path
+                                d="M61.6399 66.36L43.3199 48L61.6399 29.64L55.9999 24L31.9999 48L55.9999 72L61.6399 66.36Z"
+                                fill="#911C1C"
+                        />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_120_801">
+                            <rect
+                                    width="96"
+                                    height="96"
+                                    fill="white"
+                                    transform="translate(96) rotate(90)"
+                            />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </button>
         </div>
         <button
-          class="modal-wp-close btn-close"
-          onclick="closeModal()"
-          aria-label="Fermer la modal"
+                class="modal-wp-close btn-close"
+                onclick="closeModal()"
+                aria-label="Fermer la modal"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="72"
-            height="72"
-            viewBox="0 0 72 72"
-            fill="none"
-          >
-            <g clip-path="url(#clip0_120_794)">
-              <path
-                d="M57 19.23L52.77 15L36 31.77L19.23 15L15 19.23L31.77 36L15 52.77L19.23 57L36 40.23L52.77 57L57 52.77L40.23 36L57 19.23Z"
-                fill="#911C1C"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_120_794">
-                <rect width="72" height="72" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="72"
+                    height="72"
+                    viewBox="0 0 72 72"
+                    fill="none"
+            >
+                <g clip-path="url(#clip0_120_794)">
+                    <path
+                            d="M57 19.23L52.77 15L36 31.77L19.23 15L15 19.23L31.77 36L15 52.77L19.23 57L36 40.23L52.77 57L57 52.77L40.23 36L57 19.23Z"
+                            fill="#911C1C"
+                    />
+                </g>
+                <defs>
+                    <clipPath id="clip0_120_794">
+                        <rect width="72" height="72" fill="white"/>
+                    </clipPath>
+                </defs>
+            </svg>
         </button>
         <div class="modal-wp"></div>
-      </div>
     </div>
-    <script
-      src="https://kit.fontawesome.com/6c9b8cba66.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="./scripts/pages/photographer.js"></script>
-    <script src="./scripts/templates/photographer.js"></script>
-    <script src="./scripts/utils/contactForm.js"></script>
-  </body>
+</div>
+<script
+        src="https://kit.fontawesome.com/6c9b8cba66.js"
+        crossorigin="anonymous"
+></script>
+<!--
+http://localhost:63342/Front-End-Fisheye/assets/images/Ellie-Rose/Architecture_Horseshoe.jpg-->
+<script src="./scripts/index.js" type="module"></script>
+<!--<script src="./scripts/pages/photographer.js"></script>
+<script src="./scripts/templates/photographer.js"></script>
+<script src="./scripts/utils/contactForm.js"></script>-->
+</body>
 </html>
