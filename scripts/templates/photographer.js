@@ -1,4 +1,6 @@
 // eslint-disable-next-line no-unused-vars
+import {createElement, applyClassAndAttrsToElement} from "../utils/domManipulation.js";
+
 function photographerTemplate(data) {
   const { name, portrait, id, city, country, tagline, price } = data;
 
@@ -103,24 +105,22 @@ const carouselOnClick = (id) => {
 
 /* PHOTOGRAPH-WP CARD-LIST ELEMENT */
 // eslint-disable-next-line no-unused-vars
-const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
-  let divWp = document.createElement("div");
-  divWp.classList.add("media-wp");
-  divWp.setAttribute("role", "listitem");
-  let divMediaWp = document.createElement("div");
-  divMediaWp.classList.add("media-wp-mediawp");
-  divMediaWp.setAttribute("role", "button");
+const mediaTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
+  let divWp = createElement("div",["media-wp"],{"role":"listitem"});
+  let divMediaWp = createElement("div",["media-wp-mediawp"],{"role": "button"});
   let divText = document.createElement("div");
   let mediaEl = null;
+  const mediaElAtts ={
+    "data-index": i,"tabindex": 0,"aria-label":
+    `Voir le média ${media.title} en plein écran.`
+  };
   if (media.image) {
-    mediaEl = document.createElement("img");
+    mediaEl = createElement("img",["media-wp-mediawp-media"],{...mediaElAtts,"alt": media.title});
     mediaEl.src = srcMedia;
-    mediaEl.setAttribute("alt", media.title);
   } else if (media.video) {
-    mediaEl = document.createElement("video");
-    let videoSrc = document.createElement("source");
+    mediaEl = createElement("video",["media-wp-mediawp-media"],mediaElAtts);
+    let videoSrc = createElement("source",[],{"type": "video/mp4"});
     videoSrc.src = srcMedia;
-    videoSrc.setAttribute("type", "video/mp4");
     let videoAnchor = document.createElement("a");
     let videoText = document.createElement("p");
     videoAnchor.textContent = "un lien pour télécharger la vidéo.";
@@ -130,13 +130,6 @@ const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
     videoText.append(videoAnchor);
     mediaEl.append(videoSrc, videoText);
   }
-  mediaEl.classList.add("media-wp-mediawp-media");
-  mediaEl.setAttribute("data-index", i);
-  mediaEl.setAttribute("tabindex", 0);
-  mediaEl.setAttribute(
-    "aria-label",
-    `Voir le média ${media.title} en plein écran.`
-  );
 
   // Event Click Img
   function handleMediaEl(e) {
@@ -159,28 +152,24 @@ const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
     }
   });
 
-  let mediaTitle = document.createElement("p");
-  mediaTitle.classList.add("media-wp-text--title");
+  let mediaTitle = createElement("p",["media-wp-text--title"],{"aria-label": "Titre du média"});
   mediaTitle.textContent = media.title;
-  mediaTitle.setAttribute("aria-label", "Titre du média");
 
   // Like Creation
-  let mediaWpLike = document.createElement("div");
-  let mediaTxtLike = document.createElement("span");
-  let mediaLike = document.createElement("button");
-  mediaWpLike.classList.add("media-wp-text--wp-like");
-  mediaTxtLike.classList.add("media-wp-text--wp-txt-like");
-  mediaTxtLike.classList.add("media-wp-text--like--liked");
-  mediaLike.classList.add("media-wp-text--like");
-  mediaWpLike.setAttribute("aria-label", "J'aime");
+  let mediaTxtLike = createElement("span", ["media-wp-text--wp-txt-like", "media-wp-text--like--liked"]);
+  let mediaWpLike = createElement("div",["media-wp-text--wp-like"]);
+  let mediaLike = createElement("button",["media-wp-text--like"],{"aria-label": "J'aime"});
   mediaTxtLike.textContent = media.likes;
-  let iLike = document.createElement("i");
-  iLike.classList.add("fas", "fa-heart", "p-fa--img");
+
+  let iLike = createElement("i",["fas", "fa-heart", "p-fa--img"]);
   let hasBeenLiked = false;
   mediaLike.addEventListener("click", (e) => {
     hasBeenLiked = likeEventListener(e, mediaTxtLike, hasBeenLiked);
   });
   mediaLike.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+      return;
+    }
     e.preventDefault();
     if (e.key === "Enter" || e.keyCode === 13) {
       hasBeenLiked = likeEventListener(e, mediaTxtLike, hasBeenLiked);
@@ -202,19 +191,11 @@ const imageTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
 
 // eslint-disable-next-line no-unused-vars
 const getPriceAndLikesBlock = (totalLikes, priceTag) => {
-  const div = document.createElement("div");
-  div.classList.add("priceAndLike-wp");
-  const pLikes = document.createElement("p");
-  pLikes.classList.add("priceAndLike-wp-like");
+  const div = createElement("div",["priceAndLike-wp"]);
+  const pLikesAttrs={"aria-label": `Nombre total de j'aime : ${pLikes.textContent}`,"tabindex": 1};
+  const pLikes = createElement("p",["priceAndLike-wp-like"],pLikesAttrs);
   pLikes.textContent = totalLikes;
-  pLikes.setAttribute(
-    "aria-label",
-    `Nombre total de j'aime : ${pLikes.textContent}`
-  );
-  pLikes.setAttribute("tabindex", 1);
-  priceTag.classList.add("priceAndLike-wp-price");
-  priceTag.setAttribute("aria-label", `Prix : ${priceTag.textContent}`);
-  priceTag.setAttribute("tabindex", 1);
+  applyClassAndAttrsToElement(priceTag,["priceAndLike-wp-price"],{"aria-label":`Prix : ${priceTag.textContent}`,"tabindex": 1});
   div.append(pLikes, priceTag);
   // eslint-disable-next-line no-undef
   main.prepend(div);
@@ -266,3 +247,5 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
   article.append(div, p);
   lightbox.append(article);
 };
+
+export {mediaTemplate, photographerTemplate, getPriceAndLikesBlock, carouselElement, carouselOnClick, likeEventListener }

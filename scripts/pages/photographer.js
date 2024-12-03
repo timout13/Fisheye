@@ -1,4 +1,8 @@
 /* eslint-disable no-unused-vars */
+import { mediaTemplate, photographerTemplate, getPriceAndLikesBlock, carouselElement} from "../templates/photographer.js";
+import {handleForm} from "../utils/contactForm.js";
+import {displayModal, closeModal} from "../utils/domManipulation.js";
+
 async function getPhotographer() {
   let url = "./data/photographers.json";
   let options = {
@@ -56,7 +60,7 @@ async function displayData(authorImgs, author) {
     let srcMedia = getMediaPath(author, img);
     // Photograph-Wp Element ↓
     // eslint-disable-next-line no-undef
-    imageTemplate(i, photographWP, img, srcMedia);
+    mediaTemplate(i, photographWP, img, srcMedia);
     // eslint-disable-next-line no-undef
     carouselElement(i, lightboxWP, img, srcMedia);
     totalLikes += img.likes;
@@ -224,6 +228,8 @@ function changeSelectLabel(title) {
 
 /* INIT PAGE */
 async function init() {
+  window.displayModal = displayModal;
+  window.closeModal = closeModal;
   const photographWp = document.querySelector(".photograph-wp");
   // Récupère les datas des photographes
   const getAuthor = new URLSearchParams(document.location.search);
@@ -238,6 +244,7 @@ async function init() {
 
   // Display
   displayData(authorImgs, author);
+  handleForm();
 
   /*  
     Init Modal behaviour 

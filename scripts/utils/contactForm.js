@@ -1,30 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-function displayModal() {
-  const modal = document.getElementById("contact_modal");
-  const main = document.querySelector("main");
-  const body = document.querySelector(".body");
-  const header = document.querySelector(".header");
-  body.classList.add("body--hidden");
-  main.setAttribute("aria-hidden", "true");
-  header.setAttribute("aria-hidden", "true");
-  modal.setAttribute("aria-hidden", "false");
-  modal.classList.add("modalwp--show");
-  let closeBtn = modal.querySelector(".btn-close");
-  closeBtn.focus();
-}
 
-// eslint-disable-next-line no-unused-vars
-function closeModal() {
-  const modal = document.querySelector(".modalwp--show");
-  const main = document.querySelector("main");
-  const header = document.querySelector(".header");
-  const body = document.querySelector(".body");
-  body.classList.remove("body--hidden");
-  main.setAttribute("aria-hidden", "false");
-  header.setAttribute("aria-hidden", "false");
-  modal.setAttribute("aria-hidden", "true");
-  modal.classList.remove("modalwp--show");
-}
 
 function handleForm() {
   const btnContact = document.querySelector(".submit-btn");
@@ -48,4 +23,4 @@ function handleForm() {
 
 }
 
-handleForm();
+export {handleForm};
