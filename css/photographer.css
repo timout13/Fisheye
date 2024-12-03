@@ -35,6 +35,18 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  flex: 1;
+}
+.media-wp-text--wp-like{
+  width: fit-content;
+}
+.media-wp-text--wp-txt-like{
+  color: var(--color-primary);
+  cursor: default;
+  font-family: DM Sans;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
 }
 .media-wp-text--like {
   color: var(--color-primary);
@@ -190,7 +202,7 @@
 .media-wp-text {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: 20px;
 }
 .modal-wp-view-imgwp {
   max-height: calc(100% - 40px);
