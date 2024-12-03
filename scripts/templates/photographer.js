@@ -7,23 +7,21 @@ function photographerTemplate(data) {
   const picture = `./assets/photographers/${portrait}`;
 
   const createMainElement = () => {
-    const img = document.createElement("img");
+    const img = createElement("img",[],{"src": picture, "alt": `Photo de ${name}`});
 
-    img.setAttribute("src", picture);
-    img.setAttribute("alt", `Photo de ${name}`);
     const h2 = document.createElement("h2");
-
     h2.id = `photograph_${id}`;
     h2.textContent = name;
+
     const location = document.createElement("h3");
-
     location.textContent = `${city}, ${country}`;
+
     const catchPhrase = document.createElement("p");
-
     catchPhrase.textContent = `${tagline}`;
-    const priceTag = document.createElement("p");
 
+    const priceTag = document.createElement("p");
     priceTag.textContent = `${price}€/jour`;
+
     return { img, h2, location, catchPhrase, priceTag };
   };
   /* AJOUTER ARIA LABEL À DESC PRICE LOCATION HOMEPAGE */
@@ -62,9 +60,8 @@ function photographerTemplate(data) {
   //For Photographer page
   const getAuthorBlock = () => {
     const { img, h2, location, catchPhrase, priceTag } = createMainElement();
-    const profilWp = document.createElement("div");
+    const profilWp = createElement("div",["photograph-header-profil"]);
     const photographersSection = document.querySelector(".photograph-header");
-    profilWp.classList.add("photograph-header-profil");
     img.classList.add("photograph-header-img");
     profilWp.append(h2, location, catchPhrase);
     photographersSection.prepend(profilWp);
@@ -133,17 +130,13 @@ const mediaTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
 
   // Event Click Img
   function handleMediaEl(e) {
-    const lightbox = document.querySelector(".modalwp-lightbox");
-    const main = document.querySelector("main");
-    const header = document.querySelector(".header");
-    const body = document.querySelector(".body");
-    body.classList.add("body--hidden");
-    main.setAttribute("aria-hidden", "true");
-    header.setAttribute("aria-hidden", "true");
-    lightbox.classList.add("modalwp--show");
-    lightbox.setAttribute("aria-hidden", "false");
-    const iImg = e.target.getAttribute("data-index");
-    carouselOnClick(iImg);
+    applyClassAndAttrsToElement(document.querySelector(".modalwp-lightbox"),["modalwp--show"],{"aria-hidden": "false"}) ;
+    applyClassAndAttrsToElement(document.querySelector("main"),[],{"inert": ""}) ;
+    applyClassAndAttrsToElement(document.querySelector(".body"),["body--hidden"]) ;
+    applyClassAndAttrsToElement(document.querySelector(".header"),[],{"inert": ""}) ;
+
+    const idImg = e.target.getAttribute("data-index");
+    carouselOnClick(idImg);
   }
   mediaEl.addEventListener("click", handleMediaEl);
   mediaEl.addEventListener("keydown", (e) => {
@@ -192,7 +185,7 @@ const mediaTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
 // eslint-disable-next-line no-unused-vars
 const getPriceAndLikesBlock = (totalLikes, priceTag) => {
   const div = createElement("div",["priceAndLike-wp"]);
-  const pLikesAttrs={"aria-label": `Nombre total de j'aime : ${pLikes.textContent}`,"tabindex": 1};
+  const pLikesAttrs={"aria-label": `Nombre total de j'aime : ${totalLikes}`,"tabindex": 1};
   const pLikes = createElement("p",["priceAndLike-wp-like"],pLikesAttrs);
   pLikes.textContent = totalLikes;
   applyClassAndAttrsToElement(priceTag,["priceAndLike-wp-price"],{"aria-label":`Prix : ${priceTag.textContent}`,"tabindex": 1});
@@ -204,26 +197,21 @@ const getPriceAndLikesBlock = (totalLikes, priceTag) => {
 /* MODAL-MEDIA-WP CAROUSEL ELEMENT */
 // eslint-disable-next-line no-unused-vars
 const carouselElement = (i, lightbox, media, srcMedia) => {
-  const article = document.createElement("article");
-  const div = document.createElement("div");
+  const article = createElement("article",["modal-wp-view"],{"role": "listitem","data-id": i});
+  const div = createElement("div",["modal-wp-view-imgwp"]);
   let mediaEl = null;
-  const p = document.createElement("p");
-
-  article.classList.add("modal-wp-view");
-  div.classList.add("modal-wp-view-imgwp");
-  p.classList.add("modal-wp-view-imgwp-title");
-
-  article.setAttribute("role", "listitem");
-  article.setAttribute("data-id", i);
-
+  const p = createElement("p", ["modal-wp-view-imgwp-title"],{"aria-label": media.title});
+  p.textContent = media.title;
+  const mediaElAttrs = {
+    "width": "100%",
+    "height": "100%"
+  };
   if (media.image) {
-    mediaEl = document.createElement("img");
+    mediaEl = createElement("img",["modal-wp-view-imgwp-media"],{...mediaElAttrs,"alt": media.title});
     mediaEl.src = srcMedia;
-    mediaEl.setAttribute("alt", media.title);
   } else if (media.video) {
-    mediaEl = document.createElement("video");
+    mediaEl = createElement("video",["modal-wp-view-imgwp-media"],{...mediaElAttrs,"tabindex": 0});
     mediaEl.controls = true;
-    mediaEl.setAttribute("tabindex", 0);
     let videoSrc = document.createElement("source");
     videoSrc.src = srcMedia;
     videoSrc.setAttribute("type", "video/mp4");
@@ -236,12 +224,6 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
     videoText.append(videoAnchor);
     mediaEl.append(videoSrc, videoText);
   }
-  mediaEl.classList.add("modal-wp-view-imgwp-media");
-  mediaEl.setAttribute("width", "100%");
-  mediaEl.setAttribute("height", "100%");
-
-  p.textContent = media.title;
-  p.setAttribute("aria-label", "Titre du média");
 
   div.append(mediaEl);
   article.append(div, p);
