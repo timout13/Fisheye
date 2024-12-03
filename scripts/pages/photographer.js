@@ -2,41 +2,7 @@
 import { mediaTemplate, photographerTemplate, getPriceAndLikesBlock, carouselElement} from "../templates/photographer.js";
 import {handleForm} from "../utils/contactForm.js";
 import {displayModal, closeModal} from "../utils/domManipulation.js";
-
-async function getPhotographer() {
-  let url = "./data/photographers.json";
-  let options = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  try {
-    let allMembersOrigin = await fetch(url, options);
-    let allMembers = await allMembersOrigin.json();
-    return allMembers;
-  } catch {
-    // eslint-disable-next-line no-undef
-    console.log(err);
-  }
-}
-
-const getAuthorImgs = (allImgs, idAuthor) => {
-  const authorImgs = [];
-  allImgs.forEach((img) => {
-    img.photographerId === idAuthor && authorImgs.push(img);
-  });
-  return authorImgs;
-};
-
-const getAuthorById = (idAuthor, allAuthor) => {
-  for (const author of allAuthor) {
-    if (author.id == idAuthor) {
-      return author;
-    }
-  }
-  return null;
-};
+import {getPhotographerData} from "../utils/dataServices.js";
 
 const getMediaPath = (author, img) => {
   let name = author.name;
@@ -78,7 +44,7 @@ function displaySortedData(authorImgs, author) {
   authorImgs.forEach((img, i) => {
     let srcMedia = getMediaPath(author, img);
     // eslint-disable-next-line no-undef
-    divWpArray.push(imageTemplate(i, photographWP, img, srcMedia, true));
+    divWpArray.push(mediaTemplate(i, photographWP, img, srcMedia, true));
     // eslint-disable-next-line no-undef
     carouselElement(i, lightboxWP, img, srcMedia);
   });
@@ -126,20 +92,15 @@ function caseSelect({title, attr}, authorImgs, author, photographWp) {
   changeSelectLabel(title);
   switch (attr) {
   case "popularite":
-    console.log("pop");
     filterImgs(authorImgs, compareByPop, author, photographWp);
     break;
   case "date":
-    console.log("date");
-
     filterImgs(authorImgs, compareByDate, author, photographWp);
     break;
   case "titre":
-    console.log("titre");
     filterImgs(authorImgs, compareByTitle, author, photographWp);
     break;
   default:
-    console.log("default");
     break;
   }
 }
@@ -234,9 +195,8 @@ async function init() {
   // Récupère les datas des photographes
   const getAuthor = new URLSearchParams(document.location.search);
   const idAuthor = Number(getAuthor.get("id"));
-  const {media, photographers} = await getPhotographer();
-  const authorImgs = getAuthorImgs(media, idAuthor);
-  const author = getAuthorById(idAuthor, photographers);
+  const {authorImgs, author} = await getPhotographerData(idAuthor);
+
   const allLabelSort = document.querySelectorAll("label[data-sort]");
   const carPrev = document.querySelector("#prev");
   const carNext = document.querySelector("#next");

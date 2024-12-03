@@ -1,20 +1,5 @@
-async function getPhotographers() {
-  let url = "./data/photographers.json";
-  let options = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  try {
-    let allMembersOrigin = await fetch(url, options);
-    let allMembers = await allMembersOrigin.json();
-    return allMembers;
-  } catch {
-    // eslint-disable-next-line no-undef
-    console.log(err);
-  }
-}
+import {getPhotographersData} from "../utils/dataServices.js";
+import { photographerTemplate } from "../templates/photographer.js";
 
 async function displayData(photographers) {
   const photographersSection = document.querySelector(".photographer_section");
@@ -28,7 +13,7 @@ async function displayData(photographers) {
 
 async function init() {
   // Récupère les datas des photographes
-  const { photographers } = await getPhotographers();
+  const { photographers } = await getPhotographersData();
   displayData(photographers);
 }
 
