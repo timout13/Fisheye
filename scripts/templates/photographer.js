@@ -1,6 +1,12 @@
 import {createElement, applyClassAndAttrsToElement} from "../utils/domManipulation.js";
 
-// Create the media block in photographer page
+/**
+ * @summary Handle like event.
+ * @param e
+ * @param mediaTxtLike
+ * @param hasBeenLiked
+ * @return {boolean}
+ */
 const likeEventListener = (e, mediaTxtLike, hasBeenLiked) => {
   /* For img */
   let nbLikes = Number(mediaTxtLike.textContent);
@@ -15,6 +21,10 @@ const likeEventListener = (e, mediaTxtLike, hasBeenLiked) => {
   return !hasBeenLiked;
 };
 
+/**
+ * @summary Handle the logic to open the carousel from a media.
+ * @param id
+ */
 const carouselOnClick = (id) => {
   const oldActive = document.querySelector("[data-active='true']");
   const activeArticle = document.querySelector(`[data-id='${Number(id)}']`);
@@ -164,6 +174,11 @@ function handleMediaEl(e) {
   carouselOnClick(idImg);
 }
 
+/**
+ * @summary Create Total like & pric block & append to the main.
+ * @param totalLikes
+ * @param priceTag
+ */
 const getPriceAndLikesBlock = (totalLikes, priceTag) => {
   const main = document.querySelector("main");
   const div = createElement("div",["priceAndLike-wp"]);
@@ -215,6 +230,10 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
   lightbox.append(article);
 };
 
+/**
+ * @summary Add name to form modal.
+ * @param author
+ */
 function addNameToModal(author){
   const modalTitle = document.querySelector(".modal-form-title");
   modalTitle.textContent = `Contactez-moi \n ${author.name}`;
