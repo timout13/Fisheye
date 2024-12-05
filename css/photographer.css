@@ -99,10 +99,10 @@
   background-color: var(--color-primary);
   border-radius: 5px;
   cursor: pointer;
+  transition: transform ease-in-out 0.4s;
 }
 .contact_button:hover {
-  color: black;
-  background: #db8876;
+  transform: scale(1.1);
 }
 /* Modal */
 .modalwp {
@@ -255,6 +255,37 @@ form textarea {
   border: none;
   border-radius: 5px;
   padding: 10px;
+}
+
+.form-error {
+  display: none;
+  margin-top: 5px;
+  color: white;
+  text-decoration: black wavy underline;
+  font-weight: 900;
+}
+.form-error.show {
+  display: block;
+}
+.failure-border{
+  border: 2px solid red;
+}
+.failure{
+  animation: failure 0.4s ease-in-out;
+}
+@keyframes failure {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
 }
 /* Sort */
 .sort {

@@ -114,12 +114,16 @@
           <div>
             <label for="firstname">Prénom</label>
             <input type="text" name="firstname" id="firstname" />
+            <span class="form-error firstname">Veuillez rentrer un prénom valide</span>
             <label for="lastname">Nom</label>
             <input type="text" name="lastname" id="lastname" />
+            <span class="form-error lastname">Veuillez rentrer un nom valide</span>
             <label for="email">Email</label>
             <input type="email" name="email" id="email" />
+            <span class="form-error email">Veuillez rentrer un email valide</span>
             <label for="message">Votre message</label>
             <textarea name="message" id="message"></textarea>
+            <span class="form-error message">Veuillez rentrer un message supérieur à 3 caractères</span>
           </div>
           <button
             class="contact_button submit-btn"

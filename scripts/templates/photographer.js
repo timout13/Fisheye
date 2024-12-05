@@ -191,7 +191,7 @@ const getPriceAndLikesBlock = (totalLikes, priceTag) => {
   applyClassAndAttrsToElement(priceTag,["priceAndLike-wp-price"],{"aria-label":`Prix : ${priceTag.textContent}`,"tabindex": 1});
   div.append(pLikes, priceTag);
   // eslint-disable-next-line no-undef
-  main.prepend(div);
+  main.append(div);
 };
 
 /* MODAL-MEDIA-WP CAROUSEL ELEMENT */
