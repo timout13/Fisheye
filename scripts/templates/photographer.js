@@ -19,7 +19,9 @@ const carouselOnClick = (id) => {
   const oldActive = document.querySelector("[data-active='true']");
   const activeArticle = document.querySelector(`[data-id='${Number(id)}']`);
   oldActive && oldActive.removeAttribute("data-active");
+  oldActive && oldActive.setAttribute("inert","");
   activeArticle.setAttribute("data-active", true);
+  activeArticle.removeAttribute("inert");
   const allCarItem = document.querySelectorAll(".modal-wp-view");
   allCarItem.forEach((item) => {
     item.style.transform = `translateX(-${id * 1050}px)`;
@@ -30,7 +32,7 @@ const carouselOnClick = (id) => {
 };
 
 /**
- * @summary Assembleur of all components inside the media element.<br>
+ * @summary Assembles of all components inside the media element.<br>
  * <b>Either</b> return a html element (for sorting function) <b>or</b> append to <b>.photographer-wp</b>
  * @param i
  * @param photographWP
@@ -113,9 +115,10 @@ function mediaElEvents(mediaEl){
  * @return {HTMLElement}
  */
 function buildMediaLike(media){
-  let mediaTxtLike = createElement("span", ["media-wp-text--wp-txt-like", "media-wp-text--like--liked"]);
+  const mediaTxtLikeAttrs = {"aria-label":`Nombre de likes ${media.likes}`, "tabindex":"0"};
+  let mediaTxtLike = createElement("span", ["media-wp-text--wp-txt-like", "media-wp-text--like--liked"],mediaTxtLikeAttrs);
   let mediaWpLike = createElement("div",["media-wp-text--wp-like"]);
-  let mediaLike = createElement("button",["media-wp-text--like"],{"aria-label": "J'aime"});
+  let mediaLike = createElement("button",["media-wp-text--like"],{"aria-label": `aimer le média ${media.title}`});
   mediaTxtLike.textContent = media.likes;
 
   let iLike = createElement("i",["fas", "fa-heart", "p-fa--img"]);
@@ -180,7 +183,7 @@ const getPriceAndLikesBlock = (totalLikes, priceTag) => {
  * @param srcMedia
  */
 const carouselElement = (i, lightbox, media, srcMedia) => {
-  const article = createElement("article",["modal-wp-view"],{"role": "listitem","data-id": i});
+  const article = createElement("article",["modal-wp-view"],{"role": "listitem","data-id": i, "inert":""});
   const div = createElement("div",["modal-wp-view-imgwp"]);
   let mediaEl = null;
   const p = createElement("p", ["modal-wp-view-imgwp-title"],{"aria-label": media.title});

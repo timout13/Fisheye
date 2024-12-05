@@ -23,16 +23,15 @@ function photographerTemplate(data) {
 
     return { img, h2, location, catchPhrase, priceTag };
   };
-  /* AJOUTER ARIA LABEL À DESC PRICE LOCATION HOMEPAGE */
   // For Homepage
   function getUserCardDOM() {
     const { img, h2, location, catchPhrase, priceTag } = createMainElement();
     const article = document.createElement("article");
     const anchor = document.createElement("a");
     article.classList.add("photographer_card");
-    article.setAttribute("aria-labelledby", `photograph-${id}`);
+    article.setAttribute("aria-labelledby", `photograph_${id}`);
     anchor.classList.add("photographer_card_header");
-    anchor.setAttribute("aria-label", `Page de ${name}`);
+    anchor.setAttribute("aria-label", `Voir le profil de ${name}`);
     anchor.href = `./photographer.html?id=${id}`;
     img.classList.add("photographer_card_header_img");
     h2.classList.add("photographer_card_header_name");
@@ -70,4 +69,4 @@ function photographerTemplate(data) {
   return { name, picture, getUserCardDOM, getAuthorBlock };
 }
 
-export {photographerTemplate}
+export {photographerTemplate};

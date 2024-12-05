@@ -9,7 +9,7 @@ export const carouselArrow = (isNxt = false) => {
   if (!oldActive)
     return;
   oldActive.removeAttribute("data-active");
-
+  oldActive.setAttribute("inert","");
   const nbItems = allCarItem.length - 1;
   const idActive = Number(oldActive.getAttribute("data-id"));
   const direction = isNxt ? 1 : -1;
@@ -39,6 +39,8 @@ export const carouselArrow = (isNxt = false) => {
   }
   const activeArticle = document.querySelector(`[data-id='${newActiveId}']`);
   activeArticle.setAttribute("data-active", true);
+  activeArticle.removeAttribute("inert");
+
   const isVideo = document.querySelector("[data-active='true'] video");
   isVideo && isVideo.focus();
 };
