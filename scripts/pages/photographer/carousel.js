@@ -1,11 +1,11 @@
 export const carouselArrow = (isNxt = false) => {
   const allCarItem = document.querySelectorAll(".modal-wp-view");
   const oldActive = document.querySelector("[data-active='true']");
-  const idActive = oldActive.getAttribute("data-id");
+  const idActive = Number(oldActive.getAttribute("data-id"));
   const nbItems = allCarItem.length - 1;
 
   oldActive && oldActive.removeAttribute("data-active");
-  if (Number(idActive) == nbItems && isNxt) {
+  if (idActive == nbItems && isNxt) {
     // Sup à 10
     const activeArticle = document.querySelector("[data-id='0']");
     activeArticle.setAttribute("data-active", true);
@@ -13,7 +13,7 @@ export const carouselArrow = (isNxt = false) => {
       item.style.transform = "translateX(0)";
       item.setAttribute("data-offset", "0");
     });
-  } else if (Number(idActive) == 0 && !isNxt) {
+  } else if (idActive == 0 && !isNxt) {
     // Inf à 0
     const activeArticle = document.querySelector(
       `[data-id='${Number(nbItems)}']`
@@ -26,14 +26,13 @@ export const carouselArrow = (isNxt = false) => {
   } else {
     // Etat normal
     const activeArticle = isNxt
-      ? document.querySelector(`[data-id='${Number(idActive) + 1}']`)
-      : document.querySelector(`[data-id='${Number(idActive) - 1}']`);
+      ? document.querySelector(`[data-id='${idActive + 1}']`)
+      : document.querySelector(`[data-id='${idActive - 1}']`);
     oldActive && oldActive.removeAttribute("data-active");
     activeArticle.setAttribute("data-active", true);
     allCarItem.forEach((item) => {
-      let itemOffSet = item.getAttribute("data-offset");
-      let itemIndex = item.getAttribute("data-id");
-      let calc = isNxt ? Number(itemOffSet) - 1050 : Number(itemOffSet) + 1050;
+      let itemOffSet = Number(item.getAttribute("data-offset"));
+      let calc = isNxt ? itemOffSet - 1050 : itemOffSet + 1050;
       item.style.transform = `translateX(${calc}px)`;
       item.setAttribute("data-offset", calc);
     });
