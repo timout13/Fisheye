@@ -1,4 +1,5 @@
-import { mediaTemplate, photographerTemplate, getPriceAndLikesBlock, carouselElement} from "../../templates/photographer.js";
+import {photographerTemplate} from "../../templates/global.js";
+import { mediaTemplate, getPriceAndLikesBlock, carouselElement} from "../../templates/photographer.js";
 import {handleForm} from "../../utils/contactForm.js";
 import {displayModal, closeModal} from "../../utils/domManipulation.js";
 import {getPhotographerData} from "../../utils/dataServices.js";
