@@ -173,11 +173,9 @@ const mediaTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   divText.append(mediaTitle, mediaWpLike);
   divMediaWp.append(mediaEl);
   divWp.append(divMediaWp, divText);
-  if (!isSort) {
-    photographWP.appendChild(divWp);
-  } else {
+  if (isSort)
     return divWp;
-  }
+  photographWP.appendChild(divWp);
 };
 
 const getPriceAndLikesBlock = (totalLikes, priceTag) => {
