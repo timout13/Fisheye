@@ -226,11 +226,12 @@
   cursor: pointer;
 }
 
-.modal header h2 {
+.modal header h1 {
   font-size: 64px;
   font-weight: normal;
   text-align: left;
   width: calc(100% - 72px);
+  color: black;
 }
 
 form {
