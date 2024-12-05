@@ -29,7 +29,16 @@ const carouselOnClick = (id) => {
   isVideo && isVideo.focus();
 };
 
-/* PHOTOGRAPH-WP CARD-LIST ELEMENT */
+/**
+ * @summary Assembleur of all components inside the media element.<br>
+ * <b>Either</b> return a html element (for sorting function) <b>or</b> append to <b>.photographer-wp</b>
+ * @param i
+ * @param photographWP
+ * @param media
+ * @param srcMedia
+ * @param isSort
+ * @return {HTMLElement|void} <b>Either</b> return a html element (for sorting function) <b>or</b> append to <b>.photographer-wp</b>
+ */
 const mediaTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   let divWp = createElement("div",["media-wp"],{"role":"listitem"});
   let divMediaWp = createElement("div",["media-wp-mediawp"],{"role": "button"});
@@ -41,28 +50,9 @@ const mediaTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   mediaTitle.textContent = media.title;
 
   // Like Creation
-  let mediaTxtLike = createElement("span", ["media-wp-text--wp-txt-like", "media-wp-text--like--liked"]);
-  let mediaWpLike = createElement("div",["media-wp-text--wp-like"]);
-  let mediaLike = createElement("button",["media-wp-text--like"],{"aria-label": "J'aime"});
-  mediaTxtLike.textContent = media.likes;
+  const mediaWpLike = buildMediaLike(media);
 
-  let iLike = createElement("i",["fas", "fa-heart", "p-fa--img"]);
-  let hasBeenLiked = false;
-  mediaLike.addEventListener("click", (e) => {
-    hasBeenLiked = likeEventListener(e, mediaTxtLike, hasBeenLiked);
-  });
-  mediaLike.addEventListener("keydown", (e) => {
-    if (e.key === "Tab") {
-      return;
-    }
-    e.preventDefault();
-    if (e.key === "Enter" || e.keyCode === 13) {
-      hasBeenLiked = likeEventListener(e, mediaTxtLike, hasBeenLiked);
-    }
-  });
   divText.classList.add("media-wp-text");
-  mediaLike.appendChild(iLike);
-  mediaWpLike.append(mediaTxtLike, mediaLike);
   divText.append(mediaTitle, mediaWpLike);
   divMediaWp.append(mediaEl);
   divWp.append(divMediaWp, divText);
@@ -116,7 +106,51 @@ function mediaElEvents(mediaEl){
     }
   });
 }
-// Event Click Img
+
+/**
+ * @summary Build the like element with its events.
+ * @param media
+ * @return {HTMLElement}
+ */
+function buildMediaLike(media){
+  let mediaTxtLike = createElement("span", ["media-wp-text--wp-txt-like", "media-wp-text--like--liked"]);
+  let mediaWpLike = createElement("div",["media-wp-text--wp-like"]);
+  let mediaLike = createElement("button",["media-wp-text--like"],{"aria-label": "J'aime"});
+  mediaTxtLike.textContent = media.likes;
+
+  let iLike = createElement("i",["fas", "fa-heart", "p-fa--img"]);
+  let hasBeenLiked = false;
+  mediaLikeEvents(mediaLike,hasBeenLiked,mediaTxtLike);
+  mediaLike.appendChild(iLike);
+  mediaWpLike.append(mediaTxtLike, mediaLike);
+  return mediaWpLike;
+}
+
+/**
+ * @summary Add click & key listeners to the like element.
+ * @param mediaLike
+ * @param hasBeenLiked
+ * @param mediaTxtLike
+ */
+function mediaLikeEvents(mediaLike,hasBeenLiked,mediaTxtLike){
+  mediaLike.addEventListener("click", (e) => {
+    hasBeenLiked = likeEventListener(e, mediaTxtLike, hasBeenLiked);
+  });
+  mediaLike.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+      return;
+    }
+    e.preventDefault();
+    if (e.key === "Enter" || e.keyCode === 13) {
+      hasBeenLiked = likeEventListener(e, mediaTxtLike, hasBeenLiked);
+    }
+  });
+}
+
+/**
+ * @summary Apply accessibility attributes & classes when modal is opened.
+ * @param e
+ */
 function handleMediaEl(e) {
   applyClassAndAttrsToElement(document.querySelector(".modalwp-lightbox"),["modalwp--show"],{"aria-hidden": "false"}) ;
   applyClassAndAttrsToElement(document.querySelector("main"),[],{"inert": ""});
@@ -138,7 +172,13 @@ const getPriceAndLikesBlock = (totalLikes, priceTag) => {
   main.append(div);
 };
 
-/* MODAL-MEDIA-WP CAROUSEL ELEMENT */
+/**
+ * @summary Build a slide for the carousel element.
+ * @param i
+ * @param lightbox
+ * @param media
+ * @param srcMedia
+ */
 const carouselElement = (i, lightbox, media, srcMedia) => {
   const article = createElement("article",["modal-wp-view"],{"role": "listitem","data-id": i});
   const div = createElement("div",["modal-wp-view-imgwp"]);
