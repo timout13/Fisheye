@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import {createElement, applyClassAndAttrsToElement} from "../utils/domManipulation.js";
 
 function photographerTemplate(data) {
@@ -101,7 +100,6 @@ const carouselOnClick = (id) => {
 };
 
 /* PHOTOGRAPH-WP CARD-LIST ELEMENT */
-// eslint-disable-next-line no-unused-vars
 const mediaTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   let divWp = createElement("div",["media-wp"],{"role":"listitem"});
   let divMediaWp = createElement("div",["media-wp-mediawp"],{"role": "button"});
@@ -182,20 +180,18 @@ const mediaTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   }
 };
 
-// eslint-disable-next-line no-unused-vars
 const getPriceAndLikesBlock = (totalLikes, priceTag) => {
+  const main = document.querySelector("main");
   const div = createElement("div",["priceAndLike-wp"]);
   const pLikesAttrs={"aria-label": `Nombre total de j'aime : ${totalLikes}`,"tabindex": 1};
   const pLikes = createElement("p",["priceAndLike-wp-like"],pLikesAttrs);
   pLikes.textContent = totalLikes;
   applyClassAndAttrsToElement(priceTag,["priceAndLike-wp-price"],{"aria-label":`Prix : ${priceTag.textContent}`,"tabindex": 1});
   div.append(pLikes, priceTag);
-  // eslint-disable-next-line no-undef
   main.append(div);
 };
 
 /* MODAL-MEDIA-WP CAROUSEL ELEMENT */
-// eslint-disable-next-line no-unused-vars
 const carouselElement = (i, lightbox, media, srcMedia) => {
   const article = createElement("article",["modal-wp-view"],{"role": "listitem","data-id": i});
   const div = createElement("div",["modal-wp-view-imgwp"]);
@@ -230,4 +226,4 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
   lightbox.append(article);
 };
 
-export {mediaTemplate, photographerTemplate, getPriceAndLikesBlock, carouselElement, carouselOnClick, likeEventListener }
+export {mediaTemplate, photographerTemplate, getPriceAndLikesBlock, carouselElement, carouselOnClick, likeEventListener };

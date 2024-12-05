@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import {applyClassAndAttrsToElement} from "./domManipulation.js";
 
 function handleForm() {

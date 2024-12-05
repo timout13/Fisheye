@@ -81,6 +81,7 @@
 .media-wp-mediawp {
   width: 100%;
   height: 300px;
+  cursor: pointer;
 }
 .media-wp-mediawp-media {
   object-fit: cover;

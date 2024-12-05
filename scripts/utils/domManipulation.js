@@ -28,7 +28,6 @@ function displayModal() {
   closeBtn.focus();
 }
 
-// eslint-disable-next-line no-unused-vars
 function closeModal() {
   const modal = document.querySelector(".modalwp--show");
   const body = document.querySelector(".body");
@@ -36,8 +35,8 @@ function closeModal() {
   body.classList.remove("body--hidden");
   //faire un focus sur un btn
   modal.setAttribute("aria-hidden", "true");
-  document.querySelector("main").removeAttribute('inert');
-  document.querySelector(".header").removeAttribute('inert');
+  document.querySelector("main").removeAttribute("inert");
+  document.querySelector(".header").removeAttribute("inert");
 
   modal.classList.remove("modalwp--show");
   logo.focus();

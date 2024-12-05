@@ -22,8 +22,7 @@ async function fetchAll(){
     let allMembersOrigin = await fetch(url, options);
     let allMembers = await allMembersOrigin.json();
     return allMembers;
-  } catch {
-    // eslint-disable-next-line no-undef
+  } catch(err) {
     console.log(err);
   }
 }

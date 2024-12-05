@@ -16,7 +16,7 @@ const getMediaPath = (author, img) => {
 
 async function displayData(authorImgs, author) {
   const photographWP = document.querySelector(".photograph-wp");
-  // eslint-disable-next-line no-undef
+
   const photographerModel = photographerTemplate(author);
   const lightboxWP = document.querySelector(".modalwp-lightbox .modal-wp");
   const {priceTag} = photographerModel.getAuthorBlock();
@@ -25,13 +25,13 @@ async function displayData(authorImgs, author) {
   authorImgs.forEach((img, i) => {
     let srcMedia = getMediaPath(author, img);
     // Photograph-Wp Element ↓
-    // eslint-disable-next-line no-undef
+
     mediaTemplate(i, photographWP, img, srcMedia);
-    // eslint-disable-next-line no-undef
+
     carouselElement(i, lightboxWP, img, srcMedia);
     totalLikes += img.likes;
   });
-  // eslint-disable-next-line no-undef
+
   getPriceAndLikesBlock(totalLikes, priceTag);
 }
 
@@ -43,9 +43,7 @@ function displaySortedData(authorImgs, author) {
   lightboxArticle.forEach((article) => article.remove());
   authorImgs.forEach((img, i) => {
     let srcMedia = getMediaPath(author, img);
-    // eslint-disable-next-line no-undef
     divWpArray.push(mediaTemplate(i, photographWP, img, srcMedia, true));
-    // eslint-disable-next-line no-undef
     carouselElement(i, lightboxWP, img, srcMedia);
   });
   return divWpArray;
