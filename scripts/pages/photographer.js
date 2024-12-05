@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { mediaTemplate, photographerTemplate, getPriceAndLikesBlock, carouselElement} from "../templates/photographer.js";
 import {handleForm} from "../utils/contactForm.js";
-import {displayModal, closeModal, applyClassAndAttrsToElement} from "../utils/domManipulation.js";
+import {displayModal, closeModal} from "../utils/domManipulation.js";
 import {getPhotographerData} from "../utils/dataServices.js";
 
 const getMediaPath = (author, img) => {
