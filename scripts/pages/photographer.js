@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { mediaTemplate, photographerTemplate, getPriceAndLikesBlock, carouselElement} from "../templates/photographer.js";
 import {handleForm} from "../utils/contactForm.js";
-import {displayModal, closeModal} from "../utils/domManipulation.js";
+import {displayModal, closeModal, applyClassAndAttrsToElement} from "../utils/domManipulation.js";
 import {getPhotographerData} from "../utils/dataServices.js";
 
 const getMediaPath = (author, img) => {
@@ -215,14 +215,7 @@ async function init() {
     allModalShow.forEach((modalShow) => {
       if (modalShow.className.includes("modalwp--show")) {
         if (e.key == "Escape") {
-          modalShow.classList.remove("modalwp--show");
-          const main = document.querySelector("main");
-          const header = document.querySelector(".header");
-          const body = document.querySelector(".body");
-          body.classList.remove("body--hidden");
-          modalShow.setAttribute("aria-hidden", "true");
-          header.setAttribute("aria-hidden", "false");
-          main.setAttribute("aria-hidden", "false");
+          closeModal();
         }
         if (
           e.key == "ArrowLeft" &&

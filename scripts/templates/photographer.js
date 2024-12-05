@@ -131,9 +131,9 @@ const mediaTemplate = (i, photographWP, media, srcMedia, isSort = false) => {
   // Event Click Img
   function handleMediaEl(e) {
     applyClassAndAttrsToElement(document.querySelector(".modalwp-lightbox"),["modalwp--show"],{"aria-hidden": "false"}) ;
-    applyClassAndAttrsToElement(document.querySelector("main"),[],{"inert": ""}) ;
+    applyClassAndAttrsToElement(document.querySelector("main"),[],{"inert": ""});
     applyClassAndAttrsToElement(document.querySelector(".body"),["body--hidden"]) ;
-    applyClassAndAttrsToElement(document.querySelector(".header"),[],{"inert": ""}) ;
+    applyClassAndAttrsToElement(document.querySelector(".header"),[],{"inert": ""});
 
     const idImg = e.target.getAttribute("data-index");
     carouselOnClick(idImg);

@@ -24,21 +24,23 @@ function displayModal() {
   header.setAttribute("aria-hidden", "true");
   modal.setAttribute("aria-hidden", "false");
   modal.classList.add("modalwp--show");
-  let closeBtn = modal.querySelector(".btn-close");
+  const closeBtn = modal.querySelector(".btn-close");
   closeBtn.focus();
 }
 
 // eslint-disable-next-line no-unused-vars
 function closeModal() {
   const modal = document.querySelector(".modalwp--show");
-  const main = document.querySelector("main");
-  const header = document.querySelector(".header");
   const body = document.querySelector(".body");
+  const logo = document.querySelector(".logo-link");
   body.classList.remove("body--hidden");
-  main.setAttribute("aria-hidden", "false");
-  header.setAttribute("aria-hidden", "false");
+  //faire un focus sur un btn
   modal.setAttribute("aria-hidden", "true");
+  document.querySelector("main").removeAttribute('inert');
+  document.querySelector(".header").removeAttribute('inert');
+
   modal.classList.remove("modalwp--show");
+  logo.focus();
 }
 
-export { closeModal, displayModal, applyClassAndAttrsToElement, createElement }
+export { closeModal, displayModal, applyClassAndAttrsToElement, createElement };
