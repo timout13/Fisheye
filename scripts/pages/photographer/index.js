@@ -1,5 +1,5 @@
 import {photographerTemplate} from "../../templates/global.js";
-import { mediaTemplate, getPriceAndLikesBlock, carouselElement} from "../../templates/photographer.js";
+import {mediaTemplate, getPriceAndLikesBlock, carouselElement, addNameToModal} from "../../templates/photographer.js";
 import {handleForm} from "../../utils/contactForm.js";
 import {displayModal, closeModal} from "../../utils/domManipulation.js";
 import {getPhotographerData} from "../../utils/dataServices.js";
@@ -34,6 +34,7 @@ async function displayData(authorImgs, author) {
     totalLikes += img.likes;
   });
   getPriceAndLikesBlock(totalLikes, priceTag);
+  addNameToModal(author);
 }
 
 /* INIT PAGE */

@@ -210,10 +210,14 @@ const carouselElement = (i, lightbox, media, srcMedia) => {
     videoText.append(videoAnchor);
     mediaEl.append(videoSrc, videoText);
   }
-
   div.append(mediaEl);
   article.append(div, p);
   lightbox.append(article);
 };
 
-export {mediaTemplate, getPriceAndLikesBlock, carouselElement, carouselOnClick, likeEventListener };
+function addNameToModal(author){
+  const modalTitle = document.querySelector(".modal-form-title");
+  modalTitle.textContent = `Contactez-moi \n ${author.name}`;
+}
+
+export { mediaTemplate, getPriceAndLikesBlock, carouselElement, carouselOnClick, likeEventListener, addNameToModal };

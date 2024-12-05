@@ -167,6 +167,8 @@
   border: 0;
   background: 0;
   cursor: pointer;
+  align-self: flex-start;
+  transform: translateY(15px);
 }
 .modalwp-lightbox .modal-wp-close.btn-close {
   position: absolute;
@@ -217,6 +219,7 @@
 .modal header {
   justify-content: space-between;
   width: 100%;
+  height: auto;
 }
 
 .modal header img {
@@ -226,7 +229,8 @@
 .modal header h2 {
   font-size: 64px;
   font-weight: normal;
-  text-align: center;
+  text-align: left;
+  width: calc(100% - 72px);
 }
 
 form {
