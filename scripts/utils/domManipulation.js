@@ -32,9 +32,13 @@ function closeModal() {
   const modal = document.querySelector(".modalwp--show");
   const body = document.querySelector(".body");
   const logo = document.querySelector(".logo-link");
+  const header = document.querySelector(".header");
+  const main = document.querySelector("main");
   body.classList.remove("body--hidden");
   //faire un focus sur un btn
   modal.setAttribute("aria-hidden", "true");
+  main.setAttribute("aria-hidden", "false");
+  header.setAttribute("aria-hidden", "false");
   document.querySelector("main").removeAttribute("inert");
   document.querySelector(".header").removeAttribute("inert");
 

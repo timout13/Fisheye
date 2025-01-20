@@ -137,6 +137,7 @@
 
 .modalwp-contact .modal {
   height: 800px;
+  overflow: auto;
 }
 
 /* lightbox */
