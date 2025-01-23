@@ -108,4 +108,4 @@ const filterImgs = (authorImgs, compareFunc, author, photographWp) => {
   photographWp.replaceChildren(...dataSorted);
 };
 
-export {filterImgs, caseSelect, compareByPop, compareByDate, compareByTitle, changeSelectLabel, displaySelect, handleSort, displaySortedData}
+export {filterImgs, caseSelect, compareByPop, compareByDate, compareByTitle, changeSelectLabel, displaySelect, handleSort, displaySortedData};

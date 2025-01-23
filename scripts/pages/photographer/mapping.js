@@ -9,7 +9,7 @@ function mappingCustomSelectToggle(cSelect) {
       displaySelect(cSelect);
     }
   });
-  cSelect.addEventListener("click", (e) => {
+  cSelect.addEventListener("click", () => {
     displaySelect(cSelect);
   });
 }
@@ -21,17 +21,17 @@ function mappingCustomSelectDropdownItem(allLabelSort, cSelect, authorImgs, auth
         handleSort(cSelect, labelSort, authorImgs, author, photographWp);
       }
     });
-    labelSort.addEventListener("click", (e) => {
+    labelSort.addEventListener("click", () => {
       handleSort(cSelect, labelSort, authorImgs, author, photographWp);
     });
   });
 }
 
 function mappingCarouselByClick(carPrev, carNext) {
-  carPrev.addEventListener("click", (e) => {
+  carPrev.addEventListener("click", () => {
     carouselArrow();
   });
-  carNext.addEventListener("click", (e) => {
+  carNext.addEventListener("click", () => {
     carouselArrow(true);
   });
 }
