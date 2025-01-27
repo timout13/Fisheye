@@ -3,9 +3,7 @@ import {getMediaPath} from "./index.js";
 
 const displaySelect = (cSelect) => {
   const cSelectList = document.querySelector(".custom-select-list");
-  console.log("là");
   if (cSelectList.classList.contains("custom-select-list--show")) {
-    console.log("ici");
     cSelect.setAttribute("aria-expanded", false);
     cSelect.classList.remove("open");
     cSelectList.classList.remove("custom-select-list--show");
@@ -18,7 +16,6 @@ const displaySelect = (cSelect) => {
 
 const handleSort = (cSelect, labelSort, authorImgs, author, photographWp) => {
   const c = document.querySelector(".custom-select-list");
-  console.log("test");
   c.classList.remove("custom-select-list--show");
   cSelect.setAttribute("aria-expanded", false);
   const sort = {

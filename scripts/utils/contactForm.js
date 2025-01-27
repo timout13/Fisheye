@@ -36,7 +36,6 @@ function handleForm() {
       msg: msg.value
     };
     form.reset();
-    console.log(formValues);
   });
 
 }
